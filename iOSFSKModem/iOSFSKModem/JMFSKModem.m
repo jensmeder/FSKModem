@@ -26,6 +26,7 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 	@private
 	
 	AVAudioSession* _audioSession;
+	JMModemConfiguration* _configuration;
 	AudioStreamBasicDescription* _audioFormat;
 	
 	JMAudioInputStream* _analyzer;
@@ -37,13 +38,14 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 	dispatch_once_t _setupToken;
 }
 
--(instancetype)initWithAudioSession:(AVAudioSession *)audioSession
+-(instancetype)initWithAudioSession:(AVAudioSession *)audioSession andConfiguration:(JMModemConfiguration *)configuration
 {
 	self = [super init];
 	
 	if (self)
 	{
 		_audioSession = audioSession;
+		_configuration = configuration;
 	}
 	
 	return self;
@@ -92,13 +94,13 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
 	
 		strongSelf->_analyzer = [[JMAudioInputStream alloc]initWithAudioFormat:*_audioFormat];
-		strongSelf->_generator = [[JMFSKSerialGenerator alloc]initWithAudioFormat:strongSelf->_audioFormat];
+		strongSelf->_generator = [[JMFSKSerialGenerator alloc]initWithAudioFormat:strongSelf->_audioFormat configuration:strongSelf->_configuration];
 		strongSelf->_outputStream.audioSource = _generator;
 		
 		strongSelf->_decoder = [[JMProtocolDecoder alloc]init];
 		strongSelf->_decoder.delegate = self;
 		
-		JMFSKRecognizer* recognizer = [[JMFSKRecognizer alloc]init];
+		JMFSKRecognizer* recognizer = [[JMFSKRecognizer alloc]initWithConfiguration:strongSelf->_configuration];
 		recognizer.delegate = _decoder;
 		
 		[strongSelf->_analyzer addRecognizer:recognizer];

@@ -1,16 +1,8 @@
-#import "JMModemConfig.h"
 #import "JMFSKSerialGenerator.h"
 #import "JMQueue.h"
-
-static const float BIT_PERIOD = NSEC_PER_SEC / BAUD;
+#import "JMModemConfiguration.h"
 
 static const int SAMPLE_LIMIT_FACTOR = 100;
-
-static const int PRE_CARRIER_BITS = BAUD / 25 + 1;
-static const int POST_CARRIER_BITS = BAUD / 200 + 1;
-
-static const int TABLE_JUMP_HIGH = FREQ_HIGH / SAMPLE_LIMIT_FACTOR;
-static const int TABLE_JUMP_LOW = FREQ_LOW / SAMPLE_LIMIT_FACTOR;
 
 static const int NUMBER_OF_DATA_BITS = 8;
 static const int NUMBER_OF_START_BITS = 1;
@@ -34,14 +26,16 @@ static const int NUMBER_OF_STOP_BITS = 1;
 
 	JMQueue* _queue;
 	AudioStreamBasicDescription _audioFormat;
+	JMModemConfiguration* _configuration;
 }
 
-- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat
+- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMModemConfiguration*)configuration
 {
 	self = [super init];
 
 	if (self)
 	{
+		_configuration = configuration;
 		_audioFormat = *audioFormat;
 		_queue = [[JMQueue alloc]init];
 		_idle = YES;
@@ -76,7 +70,9 @@ static const int NUMBER_OF_STOP_BITS = 1;
 	{
 		if(_queue.count > 0)
 		{
-			_bitCount = PRE_CARRIER_BITS;
+			int preCarrierBitsCount = _configuration.baudRate / 25 + 1;
+
+			_bitCount = preCarrierBitsCount;
 			_sendCarrier = YES;
 			_idle = NO;
 			
@@ -98,7 +94,9 @@ static const int NUMBER_OF_STOP_BITS = 1;
 		}
 		else
 		{
-			_bitCount = POST_CARRIER_BITS;
+			int postCarrierBitsCount = _configuration.baudRate / 200 + 1;
+		
+			_bitCount = postCarrierBitsCount;
 			_sendCarrier = YES;
 			_idle = YES;
 		}
@@ -114,6 +112,8 @@ static const int NUMBER_OF_STOP_BITS = 1;
 	SInt16* sample = (SInt16*)buffer;
 	BOOL underflow = NO;
 	
+	float bitDuration = NSEC_PER_SEC / _configuration.baudRate;
+	
 	if(!_bitCount)
 	{
 		underflow = ![self hasNextByte];
@@ -123,7 +123,7 @@ static const int NUMBER_OF_STOP_BITS = 1;
 	{
 		// Send next bit
 	
-		if(_nsBitProgress >= BIT_PERIOD)
+		if(_nsBitProgress >= bitDuration)
 		{
 			if(_bitCount)
 			{
@@ -133,7 +133,7 @@ static const int NUMBER_OF_STOP_BITS = 1;
 					_bits >>= 1;
 				}
 			}
-			_nsBitProgress -= BIT_PERIOD;
+			_nsBitProgress -= bitDuration;
 			if(!_bitCount)
 			{
 				underflow = ![self hasNextByte];
@@ -160,8 +160,11 @@ static const int NUMBER_OF_STOP_BITS = 1;
 	}
 
 	// Modulate bits to high and low frequencies
+	
+	int highFrequencyThreshold = _configuration.highFrequency / SAMPLE_LIMIT_FACTOR;
+	int lowFrequencyThreshold = _configuration.lowFrequency / SAMPLE_LIMIT_FACTOR;
 		
-	_sineTableIndex += (_bits & 1) ? TABLE_JUMP_HIGH:TABLE_JUMP_LOW;
+	_sineTableIndex += (_bits & 1) ? highFrequencyThreshold:lowFrequencyThreshold;
 	_sineTableIndex %= _sineTableLength;
 		
 	return _sineTable[_sineTableIndex];

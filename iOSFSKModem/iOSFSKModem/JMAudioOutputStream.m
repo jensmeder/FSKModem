@@ -1,7 +1,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "JMAudioOutputStream.h"
 
-#define kNumberAudioDataBuffers	3
+static const int NUMBER_AUDIO_DATA_BUFFERS = 3;
+static const int BUFFER_BYTE_SIZE = 0x400;
 
 
 static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, AudioQueueBufferRef	bufferReference)
@@ -22,7 +23,7 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 {
 	@private
 
-	AudioQueueBufferRef	buffers[kNumberAudioDataBuffers];
+	AudioQueueBufferRef	buffers[NUMBER_AUDIO_DATA_BUFFERS];
 }
 
 - (instancetype) initWithAudioFormat:(AudioStreamBasicDescription)format
@@ -34,7 +35,7 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 		[self setupPlaybackAudioQueueObject];
 		_stopped = NO;
 		_audioPlayerShouldStopImmediately = NO;
-		_bufferByteSize = 0x400;
+		_bufferByteSize = BUFFER_BYTE_SIZE;
 	}
 	
 	return self;
@@ -55,7 +56,7 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 {
 	// prime the queue with some data before starting
 	// allocate and enqueue buffers
-	for (int bufferIndex = 0; bufferIndex < kNumberAudioDataBuffers; ++bufferIndex)
+	for (int bufferIndex = 0; bufferIndex < NUMBER_AUDIO_DATA_BUFFERS; ++bufferIndex)
 	{
 		AudioQueueAllocateBuffer (queueObject, _bufferByteSize, &buffers[bufferIndex]);
 		

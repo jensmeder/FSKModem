@@ -9,8 +9,8 @@
 	AudioStreamBasicDescription	audioFormat;
 }
 
-@property (readwrite) AudioQueueRef	queueObject;
-@property (readwrite) AudioStreamBasicDescription audioFormat;
+@property (readonly) AudioQueueRef	queueObject;
+@property (readonly) AudioStreamBasicDescription audioFormat;
 
 @property (NS_NONATOMIC_IOSONLY, getter=isRunning, readonly) BOOL running;
 

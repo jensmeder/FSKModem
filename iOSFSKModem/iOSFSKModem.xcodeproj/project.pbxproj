@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B41254731969BE15009D9228 /* JMModemConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = B41254711969BE15009D9228 /* JMModemConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B41254741969BE15009D9228 /* JMModemConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B41254721969BE15009D9228 /* JMModemConfiguration.m */; };
+		B4145CB5196971B900C61775 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4145CB3196971B900C61775 /* AudioToolbox.framework */; };
+		B4145CB6196971B900C61775 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4145CB4196971B900C61775 /* AVFoundation.framework */; };
 		B44E85951968AA5B00148E42 /* JMFSKModem.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E858A1968AA5B00148E42 /* JMFSKModem.m */; };
 		B44E85961968AA5B00148E42 /* JMProtocolDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E858D1968AA5B00148E42 /* JMProtocolDecoder.m */; };
 		B44E85971968AA5B00148E42 /* JMProtocolEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B44E85901968AA5B00148E42 /* JMProtocolEncoder.m */; };
@@ -23,7 +27,6 @@
 		B45E08E2196955B700B5B541 /* JMAudioStream.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E859E1968AA6E00148E42 /* JMAudioStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B45E08E3196955B700B5B541 /* JMFSKRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85A01968AA6E00148E42 /* JMFSKRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B45E08E4196955B700B5B541 /* JMFSKSerialGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85A21968AA6E00148E42 /* JMFSKSerialGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B45E08E5196955B700B5B541 /* JMModemConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85A41968AA6E00148E42 /* JMModemConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B45E08E6196955B700B5B541 /* JMPatternRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85A51968AA6E00148E42 /* JMPatternRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B45E08E7196955B700B5B541 /* JMAudioSource.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85881968AA5B00148E42 /* JMAudioSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B45E08E8196955B700B5B541 /* JMFSKModem.h in Headers */ = {isa = PBXBuildFile; fileRef = B44E85891968AA5B00148E42 /* JMFSKModem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B41254711969BE15009D9228 /* JMModemConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMModemConfiguration.h; sourceTree = "<group>"; };
+		B41254721969BE15009D9228 /* JMModemConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMModemConfiguration.m; sourceTree = "<group>"; };
+		B4145CB3196971B900C61775 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B4145CB4196971B900C61775 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B44E856E1968A9F900148E42 /* libiOSFSKModem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSFSKModem.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B44E857F1968A9F900148E42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = iOSFSKModemTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		B44E85881968AA5B00148E42 /* JMAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMAudioSource.h; sourceTree = "<group>"; };
@@ -61,7 +68,6 @@
 		B44E85A11968AA6E00148E42 /* JMFSKRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMFSKRecognizer.m; sourceTree = "<group>"; };
 		B44E85A21968AA6E00148E42 /* JMFSKSerialGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMFSKSerialGenerator.h; sourceTree = "<group>"; };
 		B44E85A31968AA6E00148E42 /* JMFSKSerialGenerator.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = JMFSKSerialGenerator.m; sourceTree = "<group>"; };
-		B44E85A41968AA6E00148E42 /* JMModemConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMModemConfig.h; sourceTree = "<group>"; };
 		B44E85A51968AA6E00148E42 /* JMPatternRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMPatternRecognizer.h; sourceTree = "<group>"; };
 		B44E85AF1968AD2200148E42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B44E85B11968ADAB00148E42 /* JMPrefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JMPrefix.pch; sourceTree = "<group>"; };
@@ -72,6 +78,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4145CB5196971B900C61775 /* AudioToolbox.framework in Frameworks */,
+				B4145CB6196971B900C61775 /* AVFoundation.framework in Frameworks */,
 				B44E85B01968AD2200148E42 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,6 +90,8 @@
 		B44E85651968A9F900148E42 = {
 			isa = PBXGroup;
 			children = (
+				B4145CB3196971B900C61775 /* AudioToolbox.framework */,
+				B4145CB4196971B900C61775 /* AVFoundation.framework */,
 				B44E85AF1968AD2200148E42 /* Foundation.framework */,
 				B44E85701968A9F900148E42 /* iOSFSKModem */,
 				B44E856F1968A9F900148E42 /* Products */,
@@ -109,7 +119,6 @@
 				B44E85A11968AA6E00148E42 /* JMFSKRecognizer.m */,
 				B44E85A21968AA6E00148E42 /* JMFSKSerialGenerator.h */,
 				B44E85A31968AA6E00148E42 /* JMFSKSerialGenerator.m */,
-				B44E85A41968AA6E00148E42 /* JMModemConfig.h */,
 				B44E85A51968AA6E00148E42 /* JMPatternRecognizer.h */,
 				B44E85881968AA5B00148E42 /* JMAudioSource.h */,
 				B44E85891968AA5B00148E42 /* JMFSKModem.h */,
@@ -126,6 +135,8 @@
 				B44E85941968AA5B00148E42 /* JMQueueNode.m */,
 				B44E857F1968A9F900148E42 /* Info.plist */,
 				B44E85B11968ADAB00148E42 /* JMPrefix.pch */,
+				B41254711969BE15009D9228 /* JMModemConfiguration.h */,
+				B41254721969BE15009D9228 /* JMModemConfiguration.m */,
 			);
 			path = iOSFSKModem;
 			sourceTree = "<group>";
@@ -137,12 +148,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B41254731969BE15009D9228 /* JMModemConfiguration.h in Headers */,
 				B45E08E0196955B700B5B541 /* JMAudioInputStream.h in Headers */,
 				B45E08E1196955B700B5B541 /* JMAudioOutputStream.h in Headers */,
 				B45E08E2196955B700B5B541 /* JMAudioStream.h in Headers */,
 				B45E08E3196955B700B5B541 /* JMFSKRecognizer.h in Headers */,
 				B45E08E4196955B700B5B541 /* JMFSKSerialGenerator.h in Headers */,
-				B45E08E5196955B700B5B541 /* JMModemConfig.h in Headers */,
 				B45E08E6196955B700B5B541 /* JMPatternRecognizer.h in Headers */,
 				B45E08E7196955B700B5B541 /* JMAudioSource.h in Headers */,
 				B45E08E8196955B700B5B541 /* JMFSKModem.h in Headers */,
@@ -220,6 +231,7 @@
 				B44E85951968AA5B00148E42 /* JMFSKModem.m in Sources */,
 				B44E85A61968AA6E00148E42 /* JMAudioInputStream.m in Sources */,
 				B44E85961968AA5B00148E42 /* JMProtocolDecoder.m in Sources */,
+				B41254741969BE15009D9228 /* JMModemConfiguration.m in Sources */,
 				B44E85A91968AA6E00148E42 /* JMFSKRecognizer.m in Sources */,
 				B44E85A81968AA6E00148E42 /* JMAudioStream.m in Sources */,
 			);

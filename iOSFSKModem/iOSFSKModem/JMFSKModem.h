@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioSession.h>
+#import "JMModemConfiguration.h"
 
 @class JMFSKModem;
 
@@ -14,7 +15,7 @@
 @property (nonatomic, weak) id<JMFSKModemDelegate> delegate;
 @property (readonly) BOOL connected;
 
--(instancetype)initWithAudioSession:(AVAudioSession*)audioSession;
+-(instancetype)initWithAudioSession:(AVAudioSession*)audioSession andConfiguration:(JMModemConfiguration*)configuration;
 
 -(void) connect;
 -(void) disconnect;

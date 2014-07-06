@@ -1,4 +1,3 @@
-#import "JMModemConfig.h"
 #import "JMFSKRecognizer.h"
 #import "JMQueue.h"
 
@@ -11,17 +10,7 @@ typedef NS_ENUM(NSInteger, FSKRecState)
 } ;
 
 static const int FSK_SMOOTH = 3;
-
-static const int WAVE_LENGTH_HIGH = NSEC_PER_SEC / FREQ_HIGH;
-static const int WAVE_LENGTH_LOW = NSEC_PER_SEC / FREQ_LOW;
-static const int HALF_WAVE_LENGTH_HIGH = WAVE_LENGTH_HIGH / 2;
-static const int HALF_WAVE_LENGTH_LOW = WAVE_LENGTH_LOW / 2;
-
-static const int SMOOTHER_COUNT = (FSK_SMOOTH * (FSK_SMOOTH + 1) / 2);
-
-static const int DISCRIMINATOR = (SMOOTHER_COUNT * (WAVE_LENGTH_HIGH + WAVE_LENGTH_LOW) / 4);
-
-static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
+static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 
 @implementation JMFSKRecognizer
 {
@@ -36,12 +25,18 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 	UInt8 _bits;
 	FSKRecState _state;
 	JMQueue* _queue;
+	
+	JMModemConfiguration* _configuration;
 }
 
-- (instancetype) init
+-(instancetype)initWithConfiguration:(JMModemConfiguration *)configuration
 {
-	if(self = [super init])
+	self = [super init];
+
+	if(self)
 	{
+		_configuration = configuration;
+	
 		_queue = [[JMQueue alloc]init];
 		[self reset];
 	}
@@ -114,6 +109,15 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 
 - (void) processHalfWave:(unsigned)width
 {
+	// Calculate necessary values
+	
+	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
+	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
+	
+	int discriminator = SMOOTHER_COUNT * (highFrequencyWaveLength + lowFrequencyWaveLength) / 4;
+
+	int bitDuration = NSEC_PER_SEC / _configuration.baudRate;
+
 	// Shift historic values to the next index
 	
 	for (int i = FSK_SMOOTH - 2; i >= 0; i--)
@@ -132,7 +136,7 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 	
 	// Determine frequency
 	
-	BOOL isHighFrequency = waveSum < DISCRIMINATOR;
+	BOOL isHighFrequency = waveSum < discriminator;
 	unsigned avgWidth = waveSum / SMOOTHER_COUNT;
 	
 	_recentWidth += width;
@@ -156,20 +160,20 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 			}
 		}
 		
-		if(_recentLows + _recentHighs >= BIT_PERIOD)
+		if(_recentLows + _recentHighs >= bitDuration)
 		{
 			// We have received the low bit that indicates the beginning of a byte
 		
 			[self determineStateForBit:NO];
 			_recentWidth = _recentAvrWidth = 0;
 			
-			if(_recentLows < BIT_PERIOD)
+			if(_recentLows < bitDuration)
 			{
 				_recentLows = 0;
 			}
 			else
 			{
-				_recentLows -= BIT_PERIOD;
+				_recentLows -= bitDuration;
 			}
 			
 			if(!isHighFrequency)
@@ -189,13 +193,13 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 			_recentLows += avgWidth;
 		}
 		
-		if(_recentLows + _recentHighs >= BIT_PERIOD)
+		if(_recentLows + _recentHighs >= bitDuration)
 		{
 			BOOL isHighFrequencyRegion = _recentHighs > _recentLows;
 			[self determineStateForBit:isHighFrequencyRegion];
 			
-			_recentWidth -= BIT_PERIOD;
-			_recentAvrWidth -= BIT_PERIOD;
+			_recentWidth -= bitDuration;
+			_recentAvrWidth -= bitDuration;
 			
 			if(_state == FSKStart)
 			{
@@ -207,13 +211,13 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 			unsigned* matched = isHighFrequencyRegion?&_recentHighs:&_recentLows;
 			unsigned* unmatched = isHighFrequencyRegion?&_recentLows:&_recentHighs;
 			
-			if(*matched < BIT_PERIOD)
+			if(*matched < bitDuration)
 			{
 				*matched = 0;
 			}
 			else
 			{
-				*matched -= BIT_PERIOD;
+				*matched -= bitDuration;
 			}
 			
 			if(isHighFrequency == isHighFrequencyRegion)
@@ -226,7 +230,10 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 
 - (void) edge:(int)height width:(UInt64)nsWidth interval:(UInt64)nsInterval
 {
-	if(nsInterval <= HALF_WAVE_LENGTH_LOW + HALF_WAVE_LENGTH_HIGH)
+	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
+	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
+
+	if(nsInterval <= lowFrequencyWaveLength / 2 + highFrequencyWaveLength / 2)
 	{
 		[self processHalfWave:(unsigned)nsInterval];
 	}
@@ -239,12 +246,15 @@ static const int BIT_PERIOD = (NSEC_PER_SEC / BAUD);
 
 - (void) reset
 {
+	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
+	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
+
 	_bits = 0;
 	_bitPosition = 0;
 	_state = FSKStart;
 	for (int i = 0; i < FSK_SMOOTH; i++)
 	{
-		_halfWaveHistory[i] = (WAVE_LENGTH_HIGH + WAVE_LENGTH_LOW) / 4;
+		_halfWaveHistory[i] = (highFrequencyWaveLength + lowFrequencyWaveLength) / 4;
 	}
 	_recentLows = _recentHighs = 0;
 }
