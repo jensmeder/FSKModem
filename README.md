@@ -1,7 +1,7 @@
 iOS-FSK-Modem
 =============
 
-The iOS FSK Modem framework allows sending and receiving data from any iOS devices via the head phone jack. It uses frequency shift keying to modulate a sine curve carrier signal.
+The iOS FSK Modem framework allows sending and receiving data from any iOS devices via the head phone jack. It uses frequency shift keying (FSK) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
 
 ## Project setup
 
@@ -50,6 +50,9 @@ modem.delegate = myModemDelegate;
 	NSLog(@"%@", receivedText);
 }
 ```
+## Talking to Arduino
+
+
 
 ## Credits / Acknowledgements
 
