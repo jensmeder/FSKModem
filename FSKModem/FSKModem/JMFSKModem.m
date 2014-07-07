@@ -45,7 +45,6 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 {
 	@private
 	
-	AVAudioSession* _audioSession;
 	JMFSKModemConfiguration* _configuration;
 	AudioStreamBasicDescription* _audioFormat;
 	
@@ -58,13 +57,12 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	dispatch_once_t _setupToken;
 }
 
--(instancetype)initWithAudioSession:(AVAudioSession *)audioSession andConfiguration:(JMFSKModemConfiguration *)configuration
+-(instancetype)initWithConfiguration:(JMFSKModemConfiguration *)configuration
 {
 	self = [super init];
 	
 	if (self)
 	{
-		_audioSession = audioSession;
 		_configuration = configuration;
 	}
 	
@@ -106,9 +104,13 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		[strongSelf setupAudioFormat];
 		
 		strongSelf->_encoder = [[JMProtocolEncoder alloc]init];
+		
+#if TARGET_OS_IPHONE
 	
-		[strongSelf->_audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-		[strongSelf->_audioSession setActive:YES error:nil];
+		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+		[[AVAudioSession sharedInstance] setActive:YES error:nil];
+		
+#endif
 		
 		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
 	
@@ -132,19 +134,25 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	{
 		[self setup];
 		
-		if(_audioSession.availableInputs.count > 0)
+#if TARGET_OS_IPHONE
+		
+		if([AVAudioSession sharedInstance].availableInputs.count > 0)
 		{
-			[_audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
 			[_inputStream record];
 		}
 		else
 		{
-			[_audioSession setCategory:AVAudioSessionCategoryPlayback error:nil];
+			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
 		}
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+		
+#endif
 	
 		[_outputStream play];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+		
 	
 		_connected = YES;
 	}
@@ -156,8 +164,12 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	{
 		[_inputStream stop];
 		[_outputStream stop];
+		
+#if TARGET_OS_IPHONE
 
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+		
+#endif
 	
 		_connected = NO;
 	}

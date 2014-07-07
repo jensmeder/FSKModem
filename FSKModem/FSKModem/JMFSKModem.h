@@ -20,19 +20,21 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 
-#import <UIKit/UIKit.h>
-#include <AudioToolbox/AudioToolbox.h>
+#import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
+#import "JMFSKModemConfiguration.h"
+#import "JMFSKModemDelegate.h"
 
-@interface JMAudioStream : NSObject
-{
-	@protected
+@interface JMFSKModem : NSObject
 
-	AudioQueueRef _queueObject;
-	AudioStreamBasicDescription	_audioFormat;
-}
+@property (nonatomic, weak) id<JMFSKModemDelegate> delegate;
+@property (readonly) BOOL connected;
 
-@property (NS_NONATOMIC_IOSONLY, getter=isRunning, readonly) BOOL running;
+-(instancetype)initWithConfiguration:(JMFSKModemConfiguration*)configuration;
 
--(instancetype)initWithAudioFormat:(AudioStreamBasicDescription)format;
+-(void) connect;
+-(void) disconnect;
+
+-(void) sendData:(NSData*)data;
 
 @end

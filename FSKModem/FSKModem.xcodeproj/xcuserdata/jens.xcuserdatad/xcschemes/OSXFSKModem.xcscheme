@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B44E856D1968A9F900148E42"
-               BuildableName = "libiOSFSKModem.a"
-               BlueprintName = "iOSFSKModem"
-               ReferencedContainer = "container:iOSFSKModem.xcodeproj">
+               BlueprintIdentifier = "B4A3941F196B1037002C7324"
+               BuildableName = "OSXFSKModem.framework"
+               BlueprintName = "OSXFSKModem"
+               ReferencedContainer = "container:FSKModem.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B44E85781968A9F900148E42"
-               BuildableName = "iOSFSKModemTests.xctest"
-               BlueprintName = "iOSFSKModemTests"
-               ReferencedContainer = "container:iOSFSKModem.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
