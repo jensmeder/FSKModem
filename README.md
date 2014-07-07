@@ -1,7 +1,7 @@
 iOS-FSK-Modem
 =============
 
-iOS FSK Modem is a framework that allows data transmission from any iOS devices via the head phone jack. It uses frequency shift keying to modulate a sine curve carrier signal.
+The iOS FSK Modem framework allows sending and receiving data from any iOS devices via the head phone jack. It uses frequency shift keying to modulate a sine curve carrier signal.
 
 ## Project setup
 
@@ -52,3 +52,11 @@ modem.delegate = myModemDelegate;
 ```
 
 ## Credits / Acknowledgements
+
+This project uses code from arm22's SoftModemTerminal application.
+
+https://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard
+
+The guys from Perceptive Development provide a great read on their usage of FSK in the Tin Can iOS App.
+
+http://labs.perceptdev.com/how-to-talk-to-tin-can/
