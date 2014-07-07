@@ -1,3 +1,25 @@
+//	The MIT License (MIT)
+//
+//	Copyright (c) 2014 Jens Meder
+//
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
+
 #import "JMAudioInputStream.h"
 
 static const int SAMPLE_RATE = 44100;
@@ -13,6 +35,28 @@ static const int IDLE_CHECK_PERIOD = SAMPLE_RATE / 100;
 static const int MAX_BUFFER_BYTE_SIZE = 4096;
 
 static const int NUMBER_OF_AUDIO_BUFFERS = 20;
+
+typedef struct
+{
+	int			lastFrame;
+	int			lastEdgeSign;
+	unsigned	lastEdgeWidth;
+	int			edgeSign;
+	int			edgeDiff;
+	unsigned	edgeWidth;
+	unsigned	plateauWidth;
+}
+JMAnalyzerData;
+
+@interface JMAudioInputStream ()
+
+@property (readonly) JMAnalyzerData* pulseData;
+
+- (void) edge: (int)height width:(unsigned)width interval:(unsigned)interval;
+- (void) idle: (unsigned)samples;
+- (void) reset;
+
+@end
 
 static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioInputStream* analyzer)
 {
@@ -45,9 +89,7 @@ static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioI
 			if(abs(data->edgeDiff) > EDGE_DIFF_THRESHOLD && data->lastEdgeSign != data->edgeSign)
 			{
 				// The edge is significant
-				[analyzer edge:data->edgeDiff
-						 width:data->edgeWidth
-					  interval:data->plateauWidth + data->edgeWidth];
+				[analyzer edge:data->edgeDiff width:data->edgeWidth interval:data->plateauWidth + data->edgeWidth];
 				
 				// Save the edge
 				data->lastEdgeSign = data->edgeSign;
@@ -104,7 +146,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	}
 	
 	// if not stopping, re-enqueue the buffer so that it can be filled again
-	if ([analyzer isRunning])
+	if (analyzer.running)
 	{
 		AudioQueueEnqueueBuffer (inAudioQueue, inBuffer, 0, NULL);
 	}
@@ -133,7 +175,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	{
 		_recognizers = [[NSMutableArray alloc] init];
 		
-		AudioQueueNewInput (&audioFormat, recordingCallback, (__bridge void *)(self), NULL, NULL, 0, &queueObject);
+		AudioQueueNewInput (&_audioFormat, recordingCallback, (__bridge void *)(self), NULL, NULL, 0, &_queueObject);
 	}
 	
 	return self;
@@ -144,19 +186,24 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	[_recognizers addObject:recognizer];
 }
 
+-(void)removeRecognizer:(id<JMPatternRecognizer>)recognizer
+{
+	[_recognizers removeObject:recognizer];
+}
+
 - (void) record
 {
 	[self setupRecording];
 	
 	[self reset];
 	
-	AudioQueueStart (queueObject, NULL);
+	AudioQueueStart (_queueObject, NULL);
 }
 
 
 - (void) stop
 {
-	AudioQueueStop (queueObject, TRUE);
+	AudioQueueStop (_queueObject, TRUE);
 	
 	[self reset];
 }
@@ -168,9 +215,9 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	{
 		AudioQueueBufferRef bufferRef;
 		
-		AudioQueueAllocateBuffer (queueObject, MAX_BUFFER_BYTE_SIZE, &bufferRef);
+		AudioQueueAllocateBuffer (_queueObject, MAX_BUFFER_BYTE_SIZE, &bufferRef);
 		
-		AudioQueueEnqueueBuffer (queueObject, bufferRef, 0, NULL);
+		AudioQueueEnqueueBuffer (_queueObject, bufferRef, 0, NULL);
 	}
 }
 
@@ -192,6 +239,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 {
 	UInt64 nsInterval = [self convertToNanoSeconds:interval];
 	UInt64 nsWidth = [self convertToNanoSeconds:width];
+	
 	for (id<JMPatternRecognizer> recognizer in _recognizers)
 	{
 		[recognizer edge:height width:nsWidth interval:nsInterval];
@@ -207,7 +255,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 
 - (void) dealloc
 {
-	AudioQueueDispose (queueObject, TRUE);
+	AudioQueueDispose (_queueObject, TRUE);
 }
 
 @end

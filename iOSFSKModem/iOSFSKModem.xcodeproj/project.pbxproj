@@ -109,36 +109,76 @@
 		B44E85701968A9F900148E42 /* iOSFSKModem */ = {
 			isa = PBXGroup;
 			children = (
-				B44E859A1968AA6E00148E42 /* JMAudioInputStream.h */,
-				B44E859B1968AA6E00148E42 /* JMAudioInputStream.m */,
-				B44E859C1968AA6E00148E42 /* JMAudioOutputStream.h */,
-				B44E859D1968AA6E00148E42 /* JMAudioOutputStream.m */,
-				B44E859E1968AA6E00148E42 /* JMAudioStream.h */,
-				B44E859F1968AA6E00148E42 /* JMAudioStream.m */,
-				B44E85A01968AA6E00148E42 /* JMFSKRecognizer.h */,
-				B44E85A11968AA6E00148E42 /* JMFSKRecognizer.m */,
-				B44E85A21968AA6E00148E42 /* JMFSKSerialGenerator.h */,
-				B44E85A31968AA6E00148E42 /* JMFSKSerialGenerator.m */,
-				B44E85A51968AA6E00148E42 /* JMPatternRecognizer.h */,
-				B44E85881968AA5B00148E42 /* JMAudioSource.h */,
+				B489B41C196AD1A6002100DC /* ProtocolCoding */,
+				B489B419196AD163002100DC /* Queue */,
+				B489B41A196AD173002100DC /* AudioStreams */,
+				B489B41B196AD18E002100DC /* Recognizer */,
+				B489B41D196AD1C5002100DC /* AudioSource */,
 				B44E85891968AA5B00148E42 /* JMFSKModem.h */,
 				B44E858A1968AA5B00148E42 /* JMFSKModem.m */,
-				B44E858B1968AA5B00148E42 /* JMFSKRecognizerDelegate.h */,
-				B44E858C1968AA5B00148E42 /* JMProtocolDecoder.h */,
-				B44E858D1968AA5B00148E42 /* JMProtocolDecoder.m */,
-				B44E858E1968AA5B00148E42 /* JMProtocolDecoderDelegate.h */,
-				B44E858F1968AA5B00148E42 /* JMProtocolEncoder.h */,
-				B44E85901968AA5B00148E42 /* JMProtocolEncoder.m */,
-				B44E85911968AA5B00148E42 /* JMQueue.h */,
-				B44E85921968AA5B00148E42 /* JMQueue.m */,
-				B44E85931968AA5B00148E42 /* JMQueueNode.h */,
-				B44E85941968AA5B00148E42 /* JMQueueNode.m */,
 				B44E857F1968A9F900148E42 /* Info.plist */,
 				B44E85B11968ADAB00148E42 /* JMPrefix.pch */,
 				B41254711969BE15009D9228 /* JMModemConfiguration.h */,
 				B41254721969BE15009D9228 /* JMModemConfiguration.m */,
 			);
 			path = iOSFSKModem;
+			sourceTree = "<group>";
+		};
+		B489B419196AD163002100DC /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				B44E85911968AA5B00148E42 /* JMQueue.h */,
+				B44E85921968AA5B00148E42 /* JMQueue.m */,
+				B44E85931968AA5B00148E42 /* JMQueueNode.h */,
+				B44E85941968AA5B00148E42 /* JMQueueNode.m */,
+			);
+			name = Queue;
+			sourceTree = "<group>";
+		};
+		B489B41A196AD173002100DC /* AudioStreams */ = {
+			isa = PBXGroup;
+			children = (
+				B44E859A1968AA6E00148E42 /* JMAudioInputStream.h */,
+				B44E859B1968AA6E00148E42 /* JMAudioInputStream.m */,
+				B44E859C1968AA6E00148E42 /* JMAudioOutputStream.h */,
+				B44E859D1968AA6E00148E42 /* JMAudioOutputStream.m */,
+				B44E859E1968AA6E00148E42 /* JMAudioStream.h */,
+				B44E859F1968AA6E00148E42 /* JMAudioStream.m */,
+			);
+			name = AudioStreams;
+			sourceTree = "<group>";
+		};
+		B489B41B196AD18E002100DC /* Recognizer */ = {
+			isa = PBXGroup;
+			children = (
+				B44E85A01968AA6E00148E42 /* JMFSKRecognizer.h */,
+				B44E85A11968AA6E00148E42 /* JMFSKRecognizer.m */,
+				B44E85A51968AA6E00148E42 /* JMPatternRecognizer.h */,
+				B44E858B1968AA5B00148E42 /* JMFSKRecognizerDelegate.h */,
+			);
+			name = Recognizer;
+			sourceTree = "<group>";
+		};
+		B489B41C196AD1A6002100DC /* ProtocolCoding */ = {
+			isa = PBXGroup;
+			children = (
+				B44E858C1968AA5B00148E42 /* JMProtocolDecoder.h */,
+				B44E858D1968AA5B00148E42 /* JMProtocolDecoder.m */,
+				B44E858E1968AA5B00148E42 /* JMProtocolDecoderDelegate.h */,
+				B44E858F1968AA5B00148E42 /* JMProtocolEncoder.h */,
+				B44E85901968AA5B00148E42 /* JMProtocolEncoder.m */,
+			);
+			name = ProtocolCoding;
+			sourceTree = "<group>";
+		};
+		B489B41D196AD1C5002100DC /* AudioSource */ = {
+			isa = PBXGroup;
+			children = (
+				B44E85A21968AA6E00148E42 /* JMFSKSerialGenerator.h */,
+				B44E85A31968AA6E00148E42 /* JMFSKSerialGenerator.m */,
+				B44E85881968AA5B00148E42 /* JMAudioSource.h */,
+			);
+			name = AudioSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

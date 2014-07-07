@@ -1,8 +1,40 @@
+//	The MIT License (MIT)
+//
+//	Copyright (c) 2014 Jens Meder
+//
+//	Permission is hereby granted, free of charge, to any person obtaining a copy
+//	of this software and associated documentation files (the "Software"), to deal
+//	in the Software without restriction, including without limitation the rights
+//	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//	copies of the Software, and to permit persons to whom the Software is
+//	furnished to do so, subject to the following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all
+//	copies or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//	SOFTWARE.
+
 #import <AudioToolbox/AudioToolbox.h>
 #import "JMAudioOutputStream.h"
 
 static const int NUMBER_AUDIO_DATA_BUFFERS = 3;
 static const int BUFFER_BYTE_SIZE = 0x400;
+
+@interface JMAudioOutputStream ()
+
+@property (readonly) AudioStreamPacketDescription* packetDescriptions;
+@property (readonly) BOOL stopped;
+@property (readonly) BOOL audioPlayerShouldStopImmediately;
+@property (readonly) UInt32 bufferByteSize;
+@property (readonly) UInt32	bufferPacketCount;
+
+@end
 
 
 static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, AudioQueueBufferRef	bufferReference)
@@ -33,6 +65,7 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 	if (self)
 	{
 		[self setupPlaybackAudioQueueObject];
+		
 		_stopped = NO;
 		_audioPlayerShouldStopImmediately = NO;
 		_bufferByteSize = BUFFER_BYTE_SIZE;
@@ -41,15 +74,11 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 	return self;
 }
 
-- (void) fillBuffer: (void*) buffer
-{
-}
-
 - (void) setupPlaybackAudioQueueObject
 {
-	AudioQueueNewOutput (&audioFormat, playbackCallback, (__bridge void *)(self), nil, nil, 0, &queueObject);
+	AudioQueueNewOutput (&_audioFormat, playbackCallback, (__bridge void *)(self), nil, nil, 0, &_queueObject);
 	
-	AudioQueueSetParameter (queueObject, kAudioQueueParam_Volume, 1.0f);
+	AudioQueueSetParameter (_queueObject, kAudioQueueParam_Volume, 1.0f);
 }
 
 - (void) setupAudioQueueBuffers
@@ -58,9 +87,9 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 	// allocate and enqueue buffers
 	for (int bufferIndex = 0; bufferIndex < NUMBER_AUDIO_DATA_BUFFERS; ++bufferIndex)
 	{
-		AudioQueueAllocateBuffer (queueObject, _bufferByteSize, &buffers[bufferIndex]);
+		AudioQueueAllocateBuffer (_queueObject, _bufferByteSize, &buffers[bufferIndex]);
 		
-		playbackCallback ((__bridge void *)(self), queueObject, buffers[bufferIndex]);
+		playbackCallback ((__bridge void *)(self), _queueObject, buffers[bufferIndex]);
 		
 		if (_stopped)
 		{
@@ -73,30 +102,30 @@ static void playbackCallback (void* inUserData, AudioQueueRef inAudioQueue, Audi
 {
 	[self setupAudioQueueBuffers];
 	
-	AudioQueueStart (self.queueObject, NULL);
+	AudioQueueStart (_queueObject, NULL);
 }
 
 - (void) stop
 {
-	AudioQueueStop (self.queueObject, self.audioPlayerShouldStopImmediately);
+	AudioQueueStop (_queueObject, self.audioPlayerShouldStopImmediately);
 }
 
 
 - (void) pause
 {
-	AudioQueuePause (self.queueObject);
+	AudioQueuePause (_queueObject);
 }
 
 
 - (void) resume
 {
-	AudioQueueStart (self.queueObject, NULL);
+	AudioQueueStart (_queueObject, NULL);
 }
 
 
 - (void) dealloc
 {
-	AudioQueueDispose (queueObject,YES);
+	AudioQueueDispose (_queueObject,YES);
 }
 
 @end
