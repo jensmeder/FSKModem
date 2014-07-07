@@ -37,8 +37,6 @@ static const int NUM_CHANNELS = 1;
 static const int BITS_PER_CHANNEL = 16;
 static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 
-static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
-
 @interface JMFSKModem () <JMProtocolDecoderDelegate>
 
 @end
@@ -111,7 +109,6 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 	
 		[strongSelf->_audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
 		[strongSelf->_audioSession setActive:YES error:nil];
-		[strongSelf->_audioSession setPreferredIOBufferDuration:PREFERRED_BUFFER_DURATION error:nil];
 		
 		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
 	

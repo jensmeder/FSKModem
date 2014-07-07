@@ -28,6 +28,10 @@
 @property (readonly) UInt16 lowFrequency;
 @property (readonly) UInt16 baudRate;
 
+@property (readonly) NSTimeInterval highFrequencyWaveDuration;
+@property (readonly) NSTimeInterval lowFrequencyWaveDuration;
+@property (readonly) NSTimeInterval bitDuration;
+
 +(JMFSKModemConfiguration*)lowSpeedConfiguration;
 +(JMFSKModemConfiguration*)mediumSpeedConfiguration;
 +(JMFSKModemConfiguration*)highSpeedConfiguration;

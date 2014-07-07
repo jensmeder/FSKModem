@@ -24,7 +24,7 @@
 #import "JMAudioOutputStream.h"
 
 static const int NUMBER_AUDIO_DATA_BUFFERS = 3;
-static const int BUFFER_BYTE_SIZE = 0x400;
+static const int BUFFER_BYTE_SIZE = 1024;
 
 @interface JMAudioOutputStream ()
 

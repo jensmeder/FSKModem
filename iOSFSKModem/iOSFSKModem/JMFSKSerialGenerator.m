@@ -133,9 +133,7 @@ static const int NUMBER_OF_STOP_BITS = 1;
 {
 	SInt16* sample = (SInt16*)buffer;
 	BOOL underflow = NO;
-	
-	float bitDuration = NSEC_PER_SEC / _configuration.baudRate;
-	
+
 	if(!_bitCount)
 	{
 		underflow = ![self hasNextByte];
@@ -145,7 +143,7 @@ static const int NUMBER_OF_STOP_BITS = 1;
 	{
 		// Send next bit
 	
-		if(_nsBitProgress >= bitDuration)
+		if(_nsBitProgress >= _configuration.bitDuration)
 		{
 			if(_bitCount)
 			{
@@ -155,7 +153,7 @@ static const int NUMBER_OF_STOP_BITS = 1;
 					_bits >>= 1;
 				}
 			}
-			_nsBitProgress -= bitDuration;
+			_nsBitProgress -= _configuration.bitDuration;
 			if(!_bitCount)
 			{
 				underflow = ![self hasNextByte];

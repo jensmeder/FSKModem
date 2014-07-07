@@ -26,19 +26,19 @@ static const int EDGE_DIFF_THRESHOLD = 16384;
 static const int EDGE_SLOPE_THRESHOLD = 256;
 static const int EDGE_MAX_WIDTH = 8;
 
-static const int MAX_BUFFER_BYTE_SIZE = 4096;
+static const int BUFFER_BYTE_SIZE = 4096;
 
 static const int NUMBER_OF_AUDIO_BUFFERS = 20;
 
 typedef struct
 {
-	int			lastFrame;
-	int			lastEdgeSign;
-	unsigned	lastEdgeWidth;
-	int			edgeSign;
-	int			edgeDiff;
-	unsigned	edgeWidth;
-	unsigned	plateauWidth;
+	int lastFrame;
+	int	lastEdgeSign;
+	unsigned int lastEdgeWidth;
+	int	edgeSign;
+	int	edgeDiff;
+	unsigned int edgeWidth;
+	unsigned int plateauWidth;
 }
 JMAnalyzerData;
 
@@ -216,7 +216,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	{
 		AudioQueueBufferRef bufferRef;
 		
-		AudioQueueAllocateBuffer (_queueObject, MAX_BUFFER_BYTE_SIZE, &bufferRef);
+		AudioQueueAllocateBuffer (_queueObject, BUFFER_BYTE_SIZE, &bufferRef);
 		
 		AudioQueueEnqueueBuffer (_queueObject, bufferRef, 0, NULL);
 	}

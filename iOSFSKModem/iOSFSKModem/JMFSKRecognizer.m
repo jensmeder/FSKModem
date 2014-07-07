@@ -133,12 +133,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 {
 	// Calculate necessary values
 	
-	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
-	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
-	
-	int discriminator = SMOOTHER_COUNT * (highFrequencyWaveLength + lowFrequencyWaveLength) / 4;
-
-	int bitDuration = NSEC_PER_SEC / _configuration.baudRate;
+	int discriminator = SMOOTHER_COUNT * (_configuration.highFrequencyWaveDuration + _configuration.lowFrequencyWaveDuration) / 4;
 
 	// Shift historic values to the next index
 	
@@ -182,20 +177,20 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 			}
 		}
 		
-		if(_recentLows + _recentHighs >= bitDuration)
+		if(_recentLows + _recentHighs >= _configuration.bitDuration)
 		{
 			// We have received the low bit that indicates the beginning of a byte
 		
 			[self determineStateForBit:NO];
 			_recentWidth = _recentAvrWidth = 0;
 			
-			if(_recentLows < bitDuration)
+			if(_recentLows < _configuration.bitDuration)
 			{
 				_recentLows = 0;
 			}
 			else
 			{
-				_recentLows -= bitDuration;
+				_recentLows -= _configuration.bitDuration;
 			}
 			
 			if(!isHighFrequency)
@@ -215,13 +210,13 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 			_recentLows += avgWidth;
 		}
 		
-		if(_recentLows + _recentHighs >= bitDuration)
+		if(_recentLows + _recentHighs >= _configuration.bitDuration)
 		{
 			BOOL isHighFrequencyRegion = _recentHighs > _recentLows;
 			[self determineStateForBit:isHighFrequencyRegion];
 			
-			_recentWidth -= bitDuration;
-			_recentAvrWidth -= bitDuration;
+			_recentWidth -= _configuration.bitDuration;
+			_recentAvrWidth -= _configuration.bitDuration;
 			
 			if(_state == FSKStart)
 			{
@@ -233,13 +228,13 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 			unsigned* matched = isHighFrequencyRegion?&_recentHighs:&_recentLows;
 			unsigned* unmatched = isHighFrequencyRegion?&_recentLows:&_recentHighs;
 			
-			if(*matched < bitDuration)
+			if(*matched < _configuration.bitDuration)
 			{
 				*matched = 0;
 			}
 			else
 			{
-				*matched -= bitDuration;
+				*matched -= _configuration.bitDuration;
 			}
 			
 			if(isHighFrequency == isHighFrequencyRegion)
@@ -252,10 +247,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 
 - (void) edge:(int)height width:(UInt64)nsWidth interval:(UInt64)nsInterval
 {
-	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
-	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
-
-	if(nsInterval <= lowFrequencyWaveLength / 2 + highFrequencyWaveLength / 2)
+	if(nsInterval <= _configuration.lowFrequencyWaveDuration / 2 + _configuration.highFrequencyWaveDuration / 2)
 	{
 		[self processHalfWave:(unsigned)nsInterval];
 	}
@@ -268,15 +260,12 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 
 - (void) reset
 {
-	int highFrequencyWaveLength = NSEC_PER_SEC / _configuration.highFrequency;
-	int lowFrequencyWaveLength = NSEC_PER_SEC / _configuration.lowFrequency;
-
 	_bits = 0;
 	_bitPosition = 0;
 	_state = FSKStart;
 	for (int i = 0; i < FSK_SMOOTH; i++)
 	{
-		_halfWaveHistory[i] = (highFrequencyWaveLength + lowFrequencyWaveLength) / 4;
+		_halfWaveHistory[i] = (_configuration.highFrequencyWaveDuration + _configuration.lowFrequencyWaveDuration) / 4;
 	}
 	_recentLows = _recentHighs = 0;
 }

@@ -33,6 +33,10 @@
 		_baudRate = baudRate;
 		_highFrequency = highFrequency;
 		_lowFrequency = lowFrequency;
+		
+		_highFrequencyWaveDuration = (double) NSEC_PER_SEC / (double) _highFrequency;
+		_lowFrequencyWaveDuration = (double) NSEC_PER_SEC / (double) _lowFrequency;
+		_bitDuration = (double) NSEC_PER_SEC / _baudRate;
 	}
 	
 	return self;
