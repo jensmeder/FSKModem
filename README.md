@@ -144,6 +144,9 @@ void loop()
   encodeByte();
 }
 ```
+## Known Issues
+
+iOS determines if plugged-in headphones offer a microphone as well. Unfortunately, iOS does not detect the Switch Science breakout board to include a microphone. If you run your app in the iOS simulator on Max OS X everything works fine as Mac OS X detects the breakout as headphones with microphone. Consequently, you can send data from your iOS devices to Arduino but not the other way around. I assume that this issue is due to a different resistance on the microphone pole of the breakout board. A custom circuit might solve this issue.
 
 ## Credits / Acknowledgements
 
