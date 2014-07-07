@@ -169,10 +169,7 @@ iOS determines if plugged-in headphones also offer microphone capabilities. Unfo
 
 ## Credits / Acknowledgements
 
-This project uses code from arm22's SoftModemTerminal application.
+This project uses code from arm22's [SoftModemTerminal](https://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard
+) application.
 
-https://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard
-
-The guys from Perceptive Development provide a great read on their usage of FSK in the Tin Can iOS App.
-
-http://labs.perceptdev.com/how-to-talk-to-tin-can/
+The guys from Perceptive Development provide a great read on their usage of [FSK in the Tin Can iOS App](http://labs.perceptdev.com/how-to-talk-to-tin-can/).
