@@ -10,7 +10,7 @@ If you want to use iOS FSK Modem in your app you need to add the following frame
 * AudioToolbox.framework
 * AVFoundation.framework
 
-You can either copy the source code files directly to your project or link the Static Library target of the iOS FSK Modem framework to your project. If you choose the latter one make sure to include the `-lstdc++ -ObjC -all_load` flags to the `Other Linker Flags` build settings of your target / project to avoid linker errors.
+You can either copy the source code files directly to your project or link the Static Library target of the iOS FSK Modem framework to your project. If you choose the latter one make sure to include the `-lstdc++ -ObjC -all_load` flags to the `Other Linker Flags` build settings of your target / project to avoid linker errors. Furthermore, you need to ad d `$(TARGET_BUILD_DIR)` to the `User Header Search Paths` of your project.
 
 ## Initial setup
 
