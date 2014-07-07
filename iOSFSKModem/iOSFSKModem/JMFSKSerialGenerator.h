@@ -22,11 +22,11 @@
 
 #import "JMAudioSource.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "JMModemConfiguration.h"
+#import "JMFSKModemConfiguration.h"
 
 @interface JMFSKSerialGenerator : NSObject<JMAudioSource>
 
-- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMModemConfiguration*)configuration;
+- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMFSKModemConfiguration*)configuration;
 
 - (void) writeData:(NSData*)data;
 

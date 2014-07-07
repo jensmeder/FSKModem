@@ -22,7 +22,7 @@
 
 #import "JMFSKSerialGenerator.h"
 #import "JMQueue.h"
-#import "JMModemConfiguration.h"
+#import "JMFSKModemConfiguration.h"
 
 static const int SAMPLE_LIMIT_FACTOR = 100;
 
@@ -48,10 +48,10 @@ static const int NUMBER_OF_STOP_BITS = 1;
 
 	JMQueue* _queue;
 	AudioStreamBasicDescription _audioFormat;
-	JMModemConfiguration* _configuration;
+	JMFSKModemConfiguration* _configuration;
 }
 
-- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMModemConfiguration*)configuration
+- (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMFSKModemConfiguration*)configuration
 {
 	self = [super init];
 

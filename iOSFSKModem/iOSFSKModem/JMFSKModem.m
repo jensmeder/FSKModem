@@ -48,7 +48,7 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 	@private
 	
 	AVAudioSession* _audioSession;
-	JMModemConfiguration* _configuration;
+	JMFSKModemConfiguration* _configuration;
 	AudioStreamBasicDescription* _audioFormat;
 	
 	JMAudioInputStream* _analyzer;
@@ -60,7 +60,7 @@ static const NSTimeInterval PREFERRED_BUFFER_DURATION = 0.023220;
 	dispatch_once_t _setupToken;
 }
 
--(instancetype)initWithAudioSession:(AVAudioSession *)audioSession andConfiguration:(JMModemConfiguration *)configuration
+-(instancetype)initWithAudioSession:(AVAudioSession *)audioSession andConfiguration:(JMFSKModemConfiguration *)configuration
 {
 	self = [super init];
 	

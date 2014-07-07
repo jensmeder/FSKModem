@@ -22,22 +22,15 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAudioSession.h>
-#import "JMModemConfiguration.h"
-
-@class JMFSKModem;
-
-@protocol JMFSKModemDelegate <NSObject>
-
--(void) modem:(JMFSKModem *)modem didReceiveData:(NSData*)data;
-
-@end
+#import "JMFSKModemConfiguration.h"
+#import "JMFSKModemDelegate.h"
 
 @interface JMFSKModem : NSObject
 
 @property (nonatomic, weak) id<JMFSKModemDelegate> delegate;
 @property (readonly) BOOL connected;
 
--(instancetype)initWithAudioSession:(AVAudioSession*)audioSession andConfiguration:(JMModemConfiguration*)configuration;
+-(instancetype)initWithAudioSession:(AVAudioSession*)audioSession andConfiguration:(JMFSKModemConfiguration*)configuration;
 
 -(void) connect;
 -(void) disconnect;

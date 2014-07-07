@@ -48,10 +48,10 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	FSKRecState _state;
 	JMQueue* _queue;
 	
-	JMModemConfiguration* _configuration;
+	JMFSKModemConfiguration* _configuration;
 }
 
--(instancetype)initWithConfiguration:(JMModemConfiguration *)configuration
+-(instancetype)initWithConfiguration:(JMFSKModemConfiguration *)configuration
 {
 	self = [super init];
 

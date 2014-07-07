@@ -20,14 +20,16 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 
-#import "JMPatternRecognizer.h"
-#import "JMFSKRecognizerDelegate.h"
-#import "JMFSKModemConfiguration.h"
+#import <Foundation/Foundation.h>
 
-@interface JMFSKRecognizer : NSObject <JMPatternRecognizer>
+@interface JMFSKModemConfiguration : NSObject
 
-@property (nonatomic, weak) NSObject<JMFSKRecognizerDelegate>* delegate;
+@property (readonly) UInt16 highFrequency;
+@property (readonly) UInt16 lowFrequency;
+@property (readonly) UInt16 baudRate;
 
--(instancetype)initWithConfiguration:(JMFSKModemConfiguration*)configuration;
++(JMFSKModemConfiguration*)lowSpeedConfiguration;
++(JMFSKModemConfiguration*)mediumSpeedConfiguration;
++(JMFSKModemConfiguration*)highSpeedConfiguration;
 
 @end

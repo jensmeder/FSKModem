@@ -20,16 +20,37 @@
 //	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //	SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "JMFSKModemConfiguration.h"
 
-@interface JMModemConfiguration : NSObject
+@implementation JMFSKModemConfiguration
 
-@property (readonly) UInt16 highFrequency;
-@property (readonly) UInt16 lowFrequency;
-@property (readonly) UInt16 baudRate;
+-(instancetype)initWithBaudRate:(UInt16)baudRate lowFrequency:(UInt16)lowFrequency highFrequency:(UInt16)highFrequency
+{
+	self = [super init];
+	
+	if (self)
+	{
+		_baudRate = baudRate;
+		_highFrequency = highFrequency;
+		_lowFrequency = lowFrequency;
+	}
+	
+	return self;
+}
 
-+(JMModemConfiguration*)lowSpeedConfiguration;
-+(JMModemConfiguration*)mediumSpeedConfiguration;
-+(JMModemConfiguration*)highSpeedConfiguration;
++(JMFSKModemConfiguration *)lowSpeedConfiguration
+{
+	return [[JMFSKModemConfiguration alloc]initWithBaudRate:100 lowFrequency:800 highFrequency:1600];
+}
+
++(JMFSKModemConfiguration *)mediumSpeedConfiguration
+{
+	return [[JMFSKModemConfiguration alloc]initWithBaudRate:600 lowFrequency:2666 highFrequency:4000];
+}
+
++(JMFSKModemConfiguration *)highSpeedConfiguration
+{
+	return [[JMFSKModemConfiguration alloc]initWithBaudRate:1225 lowFrequency:4900 highFrequency:7350];
+}
 
 @end
