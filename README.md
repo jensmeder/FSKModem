@@ -64,7 +64,7 @@ Fortunately, Switch Science offers a breakout board that saves you the hassle of
 
 ### Sample sketch
 
-```arduino
+```c++
 #include <SoftModem.h>
 
 SoftModem modem;
