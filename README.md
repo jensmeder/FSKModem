@@ -9,7 +9,7 @@ iOS 7.0+ or Mac OS X 10.7+
 
 ## Project setup
 
-If you want to use FSKModem in your app you need to add the following frameworks to your link library build phase of your project:
+If you want to use FSKModem you need to add the following frameworks to your _Link Binary with Library_ build phase of your project:
 
 * AudioToolbox.framework
 * AVFoundation.framework
