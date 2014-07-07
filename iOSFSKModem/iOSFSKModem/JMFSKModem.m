@@ -49,7 +49,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	JMFSKModemConfiguration* _configuration;
 	AudioStreamBasicDescription* _audioFormat;
 	
-	JMAudioInputStream* _analyzer;
+	JMAudioInputStream* _inputStream;
 	JMAudioOutputStream* _outputStream;
 	JMFSKSerialGenerator* _generator;
 	JMProtocolDecoder* _decoder;
@@ -101,7 +101,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 
 	dispatch_once(&_setupToken,
 	^{
-		__strong typeof(self) strongSelf = weakSelf;
+		__strong typeof(weakSelf) strongSelf = weakSelf;
 	
 		[strongSelf setupAudioFormat];
 		
@@ -112,7 +112,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		
 		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
 	
-		strongSelf->_analyzer = [[JMAudioInputStream alloc]initWithAudioFormat:*_audioFormat];
+		strongSelf->_inputStream = [[JMAudioInputStream alloc]initWithAudioFormat:*_audioFormat];
 		strongSelf->_generator = [[JMFSKSerialGenerator alloc]initWithAudioFormat:strongSelf->_audioFormat configuration:strongSelf->_configuration];
 		strongSelf->_outputStream.audioSource = _generator;
 		
@@ -122,7 +122,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		JMFSKRecognizer* recognizer = [[JMFSKRecognizer alloc]initWithConfiguration:strongSelf->_configuration];
 		recognizer.delegate = _decoder;
 		
-		[strongSelf->_analyzer addRecognizer:recognizer];
+		[strongSelf->_inputStream addRecognizer:recognizer];
 	});
 }
 
@@ -135,7 +135,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		if(_audioSession.availableInputs.count > 0)
 		{
 			[_audioSession setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-			[_analyzer record];
+			[_inputStream record];
 		}
 		else
 		{
@@ -154,7 +154,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 {
 	if (_connected)
 	{
-		[_analyzer stop];
+		[_inputStream stop];
 		[_outputStream stop];
 
 		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];

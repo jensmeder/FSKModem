@@ -53,9 +53,9 @@ JMAnalyzerData;
 
 @end
 
-static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioInputStream* analyzer)
+static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioInputStream* inputStream)
 {
-	JMAnalyzerData *data = analyzer.pulseData;
+	JMAnalyzerData *data = inputStream.pulseData;
 	int lastFrame = data->lastFrame;
 	
 	unsigned idleInterval = data->plateauWidth + data->lastEdgeWidth + data->edgeWidth;
@@ -84,7 +84,7 @@ static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioI
 			if(abs(data->edgeDiff) > EDGE_DIFF_THRESHOLD && data->lastEdgeSign != data->edgeSign)
 			{
 				// The edge is significant
-				[analyzer edge:data->edgeDiff width:data->edgeWidth interval:data->plateauWidth + data->edgeWidth];
+				[inputStream edge:data->edgeDiff width:data->edgeWidth interval:data->plateauWidth + data->edgeWidth];
 				
 				// Save the edge
 				data->lastEdgeSign = data->edgeSign;
@@ -120,11 +120,11 @@ static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioI
 		
 		data->lastFrame = lastFrame = thisFrame;
 		
-		int idleCheckPeriod = analyzer.audioFormat->mSampleRate / 100;
+		int idleCheckPeriod = inputStream.audioFormat->mSampleRate / 100;
 		
 		if ( (idleInterval % idleCheckPeriod) == 0 )
 		{
-			[analyzer idle:idleInterval];
+			[inputStream idle:idleInterval];
 		}
 	}
 	
@@ -132,20 +132,20 @@ static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioI
 }
 
 
-static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, AudioQueueBufferRef inBuffer, const AudioTimeStamp* inStartTime, UInt32 inNumPackets, const AudioStreamPacketDescription* inPacketDesc)
+static void recordingCallback (void* inUserData, AudioQueueRef inAQ,AudioQueueBufferRef inBuffer, const AudioTimeStamp* inStartTime, UInt32 inNumberPacketDescriptions, const AudioStreamPacketDescription *inPacketDescs)
 {
-	JMAudioInputStream *analyzer = (__bridge JMAudioInputStream*) inUserData;
+	JMAudioInputStream *inputStream = (__bridge JMAudioInputStream*) inUserData;
 	
 	// if there is audio data, analyze it
-	if (inNumPackets > 0)
+	if (inNumberPacketDescriptions > 0)
 	{
-		analyze((SInt16*)inBuffer->mAudioData, inBuffer->mAudioDataByteSize / analyzer.audioFormat->mBytesPerFrame, analyzer);
+		analyze((SInt16*)inBuffer->mAudioData, inBuffer->mAudioDataByteSize / inputStream.audioFormat->mBytesPerFrame, inputStream);
 	}
 	
 	// if not stopping, re-enqueue the buffer so that it can be filled again
-	if (analyzer.running)
+	if (inputStream.running)
 	{
-		AudioQueueEnqueueBuffer (inAudioQueue, inBuffer, 0, NULL);
+		AudioQueueEnqueueBuffer (inAQ, inBuffer, 0, NULL);
 	}
 }
 
