@@ -1,20 +1,31 @@
-iOS-FSK-Modem
+FSKModem
 =============
 
-The iOS FSK Modem framework allows sending and receiving data from any iOS devices via the head phone jack. It uses frequency shift keying (FSK) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
+The FSKModem framework allows sending and receiving data from any iOS or OS X device via the head phone jack. It uses [frequency shift keying (FSK)](http://en.wikipedia.org/wiki/Frequency-shift_keying) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
+
+## Overview
+
+1. [System requirements](README.md#system-requirements)
+2. [Project setup](README.md#project-setup)
+3. [Initial setup](README.md#initial-setup)
+4. [Sending data](README.md#sending-data)
+5. [Receiving data](README.md#receiving-data)
+6. [Talking to Arduino](README.md#talking-to-arduino)
+7. [Known Issues](README.md#known-issues)
+8. [Credits / Acknowledgements](README.md#credits--acknowledgements)
 
 ## System requirements
 
-iOS 7.0 or later
+iOS 7.0+ or Mac OS X 10.7+
 
 ## Project setup
 
-If you want to use iOS FSK Modem in your app you need to add the following frameworks to your link library build phase of your project:
+If you want to use FSKModem you need to add the following frameworks to your _Link Binary with Library_ build phase of your project:
 
 * AudioToolbox.framework
 * AVFoundation.framework
 
-You can either copy the source code files directly to your project or link the Static Library target of the iOS FSK Modem framework to your project. If you choose the latter one make sure to add the following build settings to your project:
+You can either copy the source code files directly to your project or link the Static Library target (iOS) / Cocoa framework (OS X) of the FSKModem framework to your project. If you choose the Static Library approach make sure to add the following build settings to your project, otherwise you will get linker errors:
 
 | Build Setting  | Value |
 | ------------- | ------------- |
@@ -60,7 +71,7 @@ modem.delegate = myModemDelegate;
 ```
 ## Talking to Arduino
 
-The iOS FSK Modem allows you to talk to Arduino microcontrollers by using a simple circuit. 
+The FSKModem allows you to talk to Arduino microcontrollers by using a simple circuit. 
 
 ### Requirements
 
@@ -68,7 +79,7 @@ The iOS FSK Modem allows you to talk to Arduino microcontrollers by using a simp
 * Audio Jack Circuit / [Breakout](http://www.switch-science.com/catalog/600/)
 * [SoftModem Arduino library](https://code.google.com/p/arms22/downloads/detail?name=SoftModem-005.zip)
 
-_Note_: Switch Science offers a breakout board that saves you the hassle of building it yourself. You can obtain one from [Tinkersoup](https://www.tinkersoup.de/a-569/).
+_Note_: Switch Science offers a breakout board that saves you the hassle of building the circuit yourself. You can obtain one from [Tinkersoup](https://www.tinkersoup.de/a-569/).
 
 ### Sample sketch
 
@@ -154,14 +165,11 @@ void loop()
 ```
 ## Known Issues
 
-iOS determines if plugged-in headphones also offer microphone capabilities. Unfortunately, iOS does not detect the Switch Science breakout board to include a microphone. If you run your app in the iOS simulator on Max OS X everything works fine as Mac OS X detects the breakout as headphones with microphone. Consequently, you can send data from your iOS devices to Arduino but not the other way around. I assume that this issue is due to a different resistance on the microphone pole of the breakout board. A custom circuit might solve this issue.
+iOS determines if plugged-in headphones also offer microphone capabilities. Unfortunately, iOS does not detect the Switch Science breakout board to include a microphone. If you run your app in the iOS simulator on Max OS X everything works fine as Mac OS X detects the breakout as headphones with microphone. Consequently, you can send data from your iOS devices to Arduino but not the other way around. I assume that this issue is due to a difference in resistance of the microphone pole of the breakout board and the Apple Earpods. A custom circuit might resolve this issue.
 
 ## Credits / Acknowledgements
 
-This project uses code from arm22's SoftModemTerminal application.
+This project uses code from arm22's [SoftModemTerminal](https://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard
+) application.
 
-https://code.google.com/p/arms22/wiki/SoftModemBreakoutBoard
-
-The guys from Perceptive Development provide a great read on their usage of FSK in the Tin Can iOS App.
-
-http://labs.perceptdev.com/how-to-talk-to-tin-can/
+The guys from Perceptive Development provide a great read on their usage of [FSK in the Tin Can](http://labs.perceptdev.com/how-to-talk-to-tin-can/) iOS App.
