@@ -32,7 +32,10 @@
 
 -(instancetype)initWithConfiguration:(JMFSKModemConfiguration*)configuration;
 
+-(void) connect;
 -(void) connect:(void (^)(BOOL error))completion;
+
+-(void) disconnect;
 -(void) disconnect:(void (^)(BOOL error))completion;
 
 -(void) sendData:(NSData*)data;

@@ -121,6 +121,11 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	});
 }
 
+-(void)connect
+{
+	[self connect:NULL];
+}
+
 -(void)connect:(void (^)(BOOL error))completion
 {
 	if (!_connected)
@@ -167,6 +172,11 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			}
 		});
 	}
+}
+
+-(void)disconnect
+{
+	[self disconnect:NULL];
 }
 
 -(void)disconnect:(void (^)(BOOL error))completion
