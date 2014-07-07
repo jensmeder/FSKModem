@@ -22,15 +22,9 @@
 
 #import "JMAudioInputStream.h"
 
-static const int SAMPLE_RATE = 44100;
-static const int NUM_CHANNELS = 1;
-static const int BITS_PER_CHANNEL = 16;
-static const int BYTES_PER_FRAME = NUM_CHANNELS * BITS_PER_CHANNEL / 8;
-
 static const int EDGE_DIFF_THRESHOLD = 16384;
 static const int EDGE_SLOPE_THRESHOLD = 256;
 static const int EDGE_MAX_WIDTH = 8;
-static const int IDLE_CHECK_PERIOD = SAMPLE_RATE / 100;
 
 static const int MAX_BUFFER_BYTE_SIZE = 4096;
 
@@ -51,6 +45,7 @@ JMAnalyzerData;
 @interface JMAudioInputStream ()
 
 @property (readonly) JMAnalyzerData* pulseData;
+@property (readonly) AudioStreamBasicDescription* audioFormat;
 
 - (void) edge: (int)height width:(unsigned)width interval:(unsigned)interval;
 - (void) idle: (unsigned)samples;
@@ -125,7 +120,9 @@ static int analyze( SInt16 *inputBuffer, unsigned long framesPerBuffer, JMAudioI
 		
 		data->lastFrame = lastFrame = thisFrame;
 		
-		if ( (idleInterval % IDLE_CHECK_PERIOD) == 0 )
+		int idleCheckPeriod = analyzer.audioFormat->mSampleRate / 100;
+		
+		if ( (idleInterval % idleCheckPeriod) == 0 )
 		{
 			[analyzer idle:idleInterval];
 		}
@@ -142,7 +139,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 	// if there is audio data, analyze it
 	if (inNumPackets > 0)
 	{
-		analyze((SInt16*)inBuffer->mAudioData, inBuffer->mAudioDataByteSize / BYTES_PER_FRAME, analyzer);
+		analyze((SInt16*)inBuffer->mAudioData, inBuffer->mAudioDataByteSize / analyzer.audioFormat->mBytesPerFrame, analyzer);
 	}
 	
 	// if not stopping, re-enqueue the buffer so that it can be filled again
@@ -151,7 +148,6 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 		AudioQueueEnqueueBuffer (inAudioQueue, inBuffer, 0, NULL);
 	}
 }
-
 
 
 @implementation JMAudioInputStream
@@ -165,6 +161,11 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 - (JMAnalyzerData*) pulseData
 {
 	return &_pulseData;
+}
+
+-(AudioStreamBasicDescription *)audioFormat
+{
+	return &_audioFormat;
 }
 
 - (instancetype) initWithAudioFormat:(AudioStreamBasicDescription)format
@@ -232,7 +233,7 @@ static void recordingCallback (void* inUserData, AudioQueueRef inAudioQueue, Aud
 
 -(UInt64) convertToNanoSeconds:(UInt64) interval
 {
-	return (interval * NSEC_PER_SEC) / SAMPLE_RATE;
+	return interval * NSEC_PER_SEC / _audioFormat.mSampleRate;
 }
 
 - (void) edge: (int)height width:(unsigned)width interval:(unsigned)interval
