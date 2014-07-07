@@ -15,9 +15,8 @@ You can either copy the source code files directly to your project or link the S
 ## Initial setup
 
 ```objc
-AVAudioSession* session = [AVAudioSession sharedInstance];
 JMFSKModemConfiguration* configuration = [JMModemConfiguration highSpeedConfiguration];
-JMFSKModem* modem = [[JMFSKModem alloc]initWithAudioSession:session andConfiguration:configuration];
+JMFSKModem* modem = [[JMFSKModem alloc]initWithConfiguration:configuration];
 
 [modem connect];
 ```
