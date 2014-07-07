@@ -44,7 +44,6 @@
 		B4145CB3196971B900C61775 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B4145CB4196971B900C61775 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B44E856E1968A9F900148E42 /* libiOSFSKModem.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiOSFSKModem.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		B44E857F1968A9F900148E42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = iOSFSKModemTests/Info.plist; sourceTree = SOURCE_ROOT; };
 		B44E85881968AA5B00148E42 /* JMAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMAudioSource.h; sourceTree = "<group>"; };
 		B44E85891968AA5B00148E42 /* JMFSKModem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMFSKModem.h; sourceTree = "<group>"; };
 		B44E858A1968AA5B00148E42 /* JMFSKModem.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = JMFSKModem.m; sourceTree = "<group>"; };
@@ -116,7 +115,6 @@
 				B489B41D196AD1C5002100DC /* AudioSource */,
 				B44E85891968AA5B00148E42 /* JMFSKModem.h */,
 				B44E858A1968AA5B00148E42 /* JMFSKModem.m */,
-				B44E857F1968A9F900148E42 /* Info.plist */,
 				B44E85B11968ADAB00148E42 /* JMPrefix.pch */,
 				B41254711969BE15009D9228 /* JMModemConfiguration.h */,
 				B41254721969BE15009D9228 /* JMModemConfiguration.m */,
