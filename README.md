@@ -68,7 +68,7 @@ The FSKModem allows you to talk to Arduino microcontrollers by using a simple ci
 * Audio Jack Circuit / [Breakout](http://www.switch-science.com/catalog/600/)
 * [SoftModem Arduino library](https://code.google.com/p/arms22/downloads/detail?name=SoftModem-005.zip)
 
-_Note_: Switch Science offers a breakout board that saves you the hassle of building it yourself. You can obtain one from [Tinkersoup](https://www.tinkersoup.de/a-569/).
+_Note_: Switch Science offers a breakout board that saves you the hassle of building the circuit yourself. You can obtain one from [Tinkersoup](https://www.tinkersoup.de/a-569/).
 
 ### Sample sketch
 
