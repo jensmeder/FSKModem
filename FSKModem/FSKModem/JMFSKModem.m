@@ -71,7 +71,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 
 -(void)dealloc
 {
-	[self disconnect];
+	[self disconnect:NULL];
 	
 	if (_audioFormat)
 	{
@@ -105,13 +105,6 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		
 		strongSelf->_encoder = [[JMProtocolEncoder alloc]init];
 		
-#if TARGET_OS_IPHONE
-	
-		[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-		[[AVAudioSession sharedInstance] setActive:YES error:nil];
-		
-#endif
-		
 		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
 	
 		strongSelf->_inputStream = [[JMAudioInputStream alloc]initWithAudioFormat:*_audioFormat];
@@ -128,50 +121,88 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	});
 }
 
--(void)connect
+-(void)connect:(void (^)(BOOL error))completion
 {
 	if (!_connected)
 	{
-		[self setup];
+		__weak typeof(self) weakSelf = self;
+
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+		^{
+			__strong typeof(weakSelf) strongSelf = weakSelf;
+			
+			[strongSelf setup];
 		
 #if TARGET_OS_IPHONE
 		
-		if([AVAudioSession sharedInstance].availableInputs.count > 0)
-		{
-			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-			[_inputStream record];
-		}
-		else
-		{
-			[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
-		}
+			if([AVAudioSession sharedInstance].availableInputs.count > 0)
+			{
+				[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+				[strongSelf->_inputStream record];
+			}
+			else
+			{
+				[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+			}
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
+			[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(routeChanged:) name:AVAudioSessionRouteChangeNotification object:nil];
 		
+			NSError* error = nil;
+			[[AVAudioSession sharedInstance] setActive:YES error:&error];
+			
+			if (error)
+			{
+				completion(YES);
+				return;
+			}
 #endif
 	
-		[_outputStream play];
+			[strongSelf->_outputStream play];
 		
-		
-	
-		_connected = YES;
+			strongSelf->_connected = YES;
+			
+			if (completion)
+			{
+				completion(NO);
+			}
+		});
 	}
 }
 
--(void)disconnect
+-(void)disconnect:(void (^)(BOOL error))completion
 {
 	if (_connected)
 	{
-		[_inputStream stop];
-		[_outputStream stop];
+		__weak typeof(self) weakSelf = self;
+
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+		^{
+			__strong typeof(weakSelf) strongSelf = weakSelf;
+		
+			[strongSelf->_inputStream stop];
+			[strongSelf->_outputStream stop];
 		
 #if TARGET_OS_IPHONE
 
-		[[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
+			[[NSNotificationCenter defaultCenter] removeObserver:self name:AVAudioSessionRouteChangeNotification object:nil];
 		
+			NSError* error = nil;
+			[[AVAudioSession sharedInstance] setActive:NO error:&error];
+			
+			if (error)
+			{
+				completion(YES);
+				return;
+			}
 #endif
 	
-		_connected = NO;
+			strongSelf->_connected = NO;
+			
+			if (completion)
+			{
+				completion(NO);
+			}
+		});
 	}
 }
 
@@ -196,9 +227,9 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 {
 	if (_connected)
 	{
-		[self disconnect];
+		[self disconnect:NULL];
 	
-		[self connect];
+		[self connect:NULL];
 	}
 }
 
