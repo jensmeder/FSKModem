@@ -1,11 +1,11 @@
-iOS-FSK-Modem
+FSKModem
 =============
 
-The iOS FSK Modem framework allows sending and receiving data from any iOS devices via the head phone jack. It uses frequency shift keying (FSK) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
+The FSKModem framework allows sending and receiving data from any iOS or OS X device via the head phone jack. It uses frequency shift keying (FSK) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
 
 ## System requirements
 
-iOS 7.0 or later
+iOS 7.0+ or Mac OS X 10.7+
 
 ## Project setup
 
@@ -60,7 +60,7 @@ modem.delegate = myModemDelegate;
 ```
 ## Talking to Arduino
 
-The iOS FSK Modem allows you to talk to Arduino microcontrollers by using a simple circuit. 
+The FSKModem allows you to talk to Arduino microcontrollers by using a simple circuit. 
 
 ### Requirements
 
