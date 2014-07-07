@@ -14,7 +14,7 @@ If you want to use FSKModem in your app you need to add the following frameworks
 * AudioToolbox.framework
 * AVFoundation.framework
 
-You can either copy the source code files directly to your project or link the Static Library target of the FSKModem framework to your project. If you choose the latter one make sure to add the following build settings to your project:
+You can either copy the source code files directly to your project or link the Static Library target (iOS) / Cocoa framework (OS X) of the FSKModem framework to your project. If you choose the Static Library approach make sure to add the following build settings to your project, otherwise you will get linker errors:
 
 | Build Setting  | Value |
 | ------------- | ------------- |
