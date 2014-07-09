@@ -1,0 +1,502 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B4118464196DD86B004EB8F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118463196DD86B004EB8F4 /* main.m */; };
+		B4118467196DD86B004EB8F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118466196DD86B004EB8F4 /* AppDelegate.m */; };
+		B411846F196DD86B004EB8F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B411846E196DD86B004EB8F4 /* Images.xcassets */; };
+		B411847B196DD86B004EB8F4 /* TerminalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B411847A196DD86B004EB8F4 /* TerminalTests.m */; };
+		B411848F196DD8CD004EB8F4 /* libFSKModem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B411848A196DD8A3004EB8F4 /* libFSKModem.a */; };
+		B4118492196DD8CD004EB8F4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */; };
+		B4118493196DD8CD004EB8F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118491196DD8CD004EB8F4 /* AVFoundation.framework */; };
+		B411849F196DD9BF004EB8F4 /* JMTerminalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B411849E196DD9BF004EB8F4 /* JMTerminalViewModel.m */; };
+		B41184A2196DD9D7004EB8F4 /* JMTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41184A1196DD9D7004EB8F4 /* JMTerminalViewController.m */; };
+		B41184A5196DD9E4004EB8F4 /* JMTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = B41184A4196DD9E4004EB8F4 /* JMTerminalView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B4118475196DD86B004EB8F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118456196DD86B004EB8F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B411845D196DD86B004EB8F4;
+			remoteInfo = Terminal;
+		};
+		B4118489196DD8A3004EB8F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B44E856E1968A9F900148E42;
+			remoteInfo = iOSFSKModem;
+		};
+		B411848B196DD8A3004EB8F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B4A39420196B1037002C7324;
+			remoteInfo = OSXFSKModem;
+		};
+		B411848D196DD8B4004EB8F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B44E856D1968A9F900148E42;
+			remoteInfo = iOSFSKModem;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B411845E196DD86B004EB8F4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4118462196DD86B004EB8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4118463196DD86B004EB8F4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B4118465196DD86B004EB8F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B4118466196DD86B004EB8F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B411846E196DD86B004EB8F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		B4118474196DD86B004EB8F4 /* TerminalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4118479196DD86B004EB8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B411847A196DD86B004EB8F4 /* TerminalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TerminalTests.m; sourceTree = "<group>"; };
+		B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FSKModem.xcodeproj; path = ../../FSKModem/FSKModem.xcodeproj; sourceTree = "<group>"; };
+		B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B4118491196DD8CD004EB8F4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B411849D196DD9BF004EB8F4 /* JMTerminalViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTerminalViewModel.h; sourceTree = "<group>"; };
+		B411849E196DD9BF004EB8F4 /* JMTerminalViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTerminalViewModel.m; sourceTree = "<group>"; };
+		B41184A0196DD9D7004EB8F4 /* JMTerminalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTerminalViewController.h; sourceTree = "<group>"; };
+		B41184A1196DD9D7004EB8F4 /* JMTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTerminalViewController.m; sourceTree = "<group>"; };
+		B41184A3196DD9E4004EB8F4 /* JMTerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTerminalView.h; sourceTree = "<group>"; };
+		B41184A4196DD9E4004EB8F4 /* JMTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTerminalView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B411845B196DD86B004EB8F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4118492196DD8CD004EB8F4 /* AudioToolbox.framework in Frameworks */,
+				B4118493196DD8CD004EB8F4 /* AVFoundation.framework in Frameworks */,
+				B411848F196DD8CD004EB8F4 /* libFSKModem.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4118471196DD86B004EB8F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B4118455196DD86B004EB8F4 = {
+			isa = PBXGroup;
+			children = (
+				B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */,
+				B4118491196DD8CD004EB8F4 /* AVFoundation.framework */,
+				B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */,
+				B4118460196DD86B004EB8F4 /* Terminal */,
+				B4118477196DD86B004EB8F4 /* TerminalTests */,
+				B411845F196DD86B004EB8F4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B411845F196DD86B004EB8F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B411845E196DD86B004EB8F4 /* Terminal.app */,
+				B4118474196DD86B004EB8F4 /* TerminalTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B4118460196DD86B004EB8F4 /* Terminal */ = {
+			isa = PBXGroup;
+			children = (
+				B4118465196DD86B004EB8F4 /* AppDelegate.h */,
+				B4118466196DD86B004EB8F4 /* AppDelegate.m */,
+				B411846E196DD86B004EB8F4 /* Images.xcassets */,
+				B4118461196DD86B004EB8F4 /* Supporting Files */,
+				B411849D196DD9BF004EB8F4 /* JMTerminalViewModel.h */,
+				B411849E196DD9BF004EB8F4 /* JMTerminalViewModel.m */,
+				B41184A0196DD9D7004EB8F4 /* JMTerminalViewController.h */,
+				B41184A1196DD9D7004EB8F4 /* JMTerminalViewController.m */,
+				B41184A3196DD9E4004EB8F4 /* JMTerminalView.h */,
+				B41184A4196DD9E4004EB8F4 /* JMTerminalView.m */,
+			);
+			path = Terminal;
+			sourceTree = "<group>";
+		};
+		B4118461196DD86B004EB8F4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4118462196DD86B004EB8F4 /* Info.plist */,
+				B4118463196DD86B004EB8F4 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B4118477196DD86B004EB8F4 /* TerminalTests */ = {
+			isa = PBXGroup;
+			children = (
+				B411847A196DD86B004EB8F4 /* TerminalTests.m */,
+				B4118478196DD86B004EB8F4 /* Supporting Files */,
+			);
+			path = TerminalTests;
+			sourceTree = "<group>";
+		};
+		B4118478196DD86B004EB8F4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B4118479196DD86B004EB8F4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B4118485196DD8A2004EB8F4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B411848A196DD8A3004EB8F4 /* libFSKModem.a */,
+				B411848C196DD8A3004EB8F4 /* OSXFSKModem.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B411845D196DD86B004EB8F4 /* Terminal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B411847E196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "Terminal" */;
+			buildPhases = (
+				B411845A196DD86B004EB8F4 /* Sources */,
+				B411845B196DD86B004EB8F4 /* Frameworks */,
+				B411845C196DD86B004EB8F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B411848E196DD8B4004EB8F4 /* PBXTargetDependency */,
+			);
+			name = Terminal;
+			productName = Terminal;
+			productReference = B411845E196DD86B004EB8F4 /* Terminal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B4118473196DD86B004EB8F4 /* TerminalTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B4118481196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "TerminalTests" */;
+			buildPhases = (
+				B4118470196DD86B004EB8F4 /* Sources */,
+				B4118471196DD86B004EB8F4 /* Frameworks */,
+				B4118472196DD86B004EB8F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B4118476196DD86B004EB8F4 /* PBXTargetDependency */,
+			);
+			name = TerminalTests;
+			productName = TerminalTests;
+			productReference = B4118474196DD86B004EB8F4 /* TerminalTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B4118456196DD86B004EB8F4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JM;
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Jens Meder";
+				TargetAttributes = {
+					B411845D196DD86B004EB8F4 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					B4118473196DD86B004EB8F4 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = B411845D196DD86B004EB8F4;
+					};
+				};
+			};
+			buildConfigurationList = B4118459196DD86B004EB8F4 /* Build configuration list for PBXProject "Terminal" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B4118455196DD86B004EB8F4;
+			productRefGroup = B411845F196DD86B004EB8F4 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B4118485196DD8A2004EB8F4 /* Products */;
+					ProjectRef = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				B411845D196DD86B004EB8F4 /* Terminal */,
+				B4118473196DD86B004EB8F4 /* TerminalTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B411848A196DD8A3004EB8F4 /* libFSKModem.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFSKModem.a;
+			remoteRef = B4118489196DD8A3004EB8F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B411848C196DD8A3004EB8F4 /* OSXFSKModem.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OSXFSKModem.framework;
+			remoteRef = B411848B196DD8A3004EB8F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B411845C196DD86B004EB8F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B411846F196DD86B004EB8F4 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4118472196DD86B004EB8F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B411845A196DD86B004EB8F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B4118467196DD86B004EB8F4 /* AppDelegate.m in Sources */,
+				B41184A5196DD9E4004EB8F4 /* JMTerminalView.m in Sources */,
+				B411849F196DD9BF004EB8F4 /* JMTerminalViewModel.m in Sources */,
+				B4118464196DD86B004EB8F4 /* main.m in Sources */,
+				B41184A2196DD9D7004EB8F4 /* JMTerminalViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4118470196DD86B004EB8F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B411847B196DD86B004EB8F4 /* TerminalTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B4118476196DD86B004EB8F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B411845D196DD86B004EB8F4 /* Terminal */;
+			targetProxy = B4118475196DD86B004EB8F4 /* PBXContainerItemProxy */;
+		};
+		B411848E196DD8B4004EB8F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = iOSFSKModem;
+			targetProxy = B411848D196DD8B4004EB8F4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B411847C196DD86B004EB8F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B411847D196DD86B004EB8F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B411847F196DD86B004EB8F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = Terminal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/**";
+			};
+			name = Debug;
+		};
+		B4118480196DD86B004EB8F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = Terminal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-lstdc++",
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/**";
+			};
+			name = Release;
+		};
+		B4118482196DD86B004EB8F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Terminal.app/Terminal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TerminalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		B4118483196DD86B004EB8F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Terminal.app/Terminal";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = TerminalTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B4118459196DD86B004EB8F4 /* Build configuration list for PBXProject "Terminal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B411847C196DD86B004EB8F4 /* Debug */,
+				B411847D196DD86B004EB8F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B411847E196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "Terminal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B411847F196DD86B004EB8F4 /* Debug */,
+				B4118480196DD86B004EB8F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		B4118481196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "TerminalTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4118482196DD86B004EB8F4 /* Debug */,
+				B4118483196DD86B004EB8F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B4118456196DD86B004EB8F4 /* Project object */;
+}
