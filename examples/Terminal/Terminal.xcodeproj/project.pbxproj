@@ -10,7 +10,6 @@
 		B4118464196DD86B004EB8F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118463196DD86B004EB8F4 /* main.m */; };
 		B4118467196DD86B004EB8F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118466196DD86B004EB8F4 /* AppDelegate.m */; };
 		B411846F196DD86B004EB8F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B411846E196DD86B004EB8F4 /* Images.xcassets */; };
-		B411847B196DD86B004EB8F4 /* TerminalTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B411847A196DD86B004EB8F4 /* TerminalTests.m */; };
 		B411848F196DD8CD004EB8F4 /* libFSKModem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B411848A196DD8A3004EB8F4 /* libFSKModem.a */; };
 		B4118492196DD8CD004EB8F4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */; };
 		B4118493196DD8CD004EB8F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118491196DD8CD004EB8F4 /* AVFoundation.framework */; };
@@ -20,13 +19,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B4118475196DD86B004EB8F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B4118456196DD86B004EB8F4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B411845D196DD86B004EB8F4;
-			remoteInfo = Terminal;
-		};
 		B4118489196DD8A3004EB8F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
@@ -57,9 +49,6 @@
 		B4118465196DD86B004EB8F4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B4118466196DD86B004EB8F4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B411846E196DD86B004EB8F4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		B4118474196DD86B004EB8F4 /* TerminalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4118479196DD86B004EB8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B411847A196DD86B004EB8F4 /* TerminalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TerminalTests.m; sourceTree = "<group>"; };
 		B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FSKModem.xcodeproj; path = ../../FSKModem/FSKModem.xcodeproj; sourceTree = "<group>"; };
 		B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B4118491196DD8CD004EB8F4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -82,13 +71,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4118471196DD86B004EB8F4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -99,7 +81,6 @@
 				B4118491196DD8CD004EB8F4 /* AVFoundation.framework */,
 				B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */,
 				B4118460196DD86B004EB8F4 /* Terminal */,
-				B4118477196DD86B004EB8F4 /* TerminalTests */,
 				B411845F196DD86B004EB8F4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -108,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				B411845E196DD86B004EB8F4 /* Terminal.app */,
-				B4118474196DD86B004EB8F4 /* TerminalTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,23 +115,6 @@
 			children = (
 				B4118462196DD86B004EB8F4 /* Info.plist */,
 				B4118463196DD86B004EB8F4 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		B4118477196DD86B004EB8F4 /* TerminalTests */ = {
-			isa = PBXGroup;
-			children = (
-				B411847A196DD86B004EB8F4 /* TerminalTests.m */,
-				B4118478196DD86B004EB8F4 /* Supporting Files */,
-			);
-			path = TerminalTests;
-			sourceTree = "<group>";
-		};
-		B4118478196DD86B004EB8F4 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B4118479196DD86B004EB8F4 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -186,24 +149,6 @@
 			productReference = B411845E196DD86B004EB8F4 /* Terminal.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B4118473196DD86B004EB8F4 /* TerminalTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B4118481196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "TerminalTests" */;
-			buildPhases = (
-				B4118470196DD86B004EB8F4 /* Sources */,
-				B4118471196DD86B004EB8F4 /* Frameworks */,
-				B4118472196DD86B004EB8F4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B4118476196DD86B004EB8F4 /* PBXTargetDependency */,
-			);
-			name = TerminalTests;
-			productName = TerminalTests;
-			productReference = B4118474196DD86B004EB8F4 /* TerminalTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -216,10 +161,6 @@
 				TargetAttributes = {
 					B411845D196DD86B004EB8F4 = {
 						CreatedOnToolsVersion = 6.0;
-					};
-					B4118473196DD86B004EB8F4 = {
-						CreatedOnToolsVersion = 6.0;
-						TestTargetID = B411845D196DD86B004EB8F4;
 					};
 				};
 			};
@@ -243,7 +184,6 @@
 			projectRoot = "";
 			targets = (
 				B411845D196DD86B004EB8F4 /* Terminal */,
-				B4118473196DD86B004EB8F4 /* TerminalTests */,
 			);
 		};
 /* End PBXProject section */
@@ -274,13 +214,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4118472196DD86B004EB8F4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -296,22 +229,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B4118470196DD86B004EB8F4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B411847B196DD86B004EB8F4 /* TerminalTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B4118476196DD86B004EB8F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B411845D196DD86B004EB8F4 /* Terminal */;
-			targetProxy = B4118475196DD86B004EB8F4 /* PBXContainerItemProxy */;
-		};
 		B411848E196DD8B4004EB8F4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = iOSFSKModem;
@@ -434,40 +354,6 @@
 			};
 			name = Release;
 		};
-		B4118482196DD86B004EB8F4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Terminal.app/Terminal";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TerminalTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Debug;
-		};
-		B4118483196DD86B004EB8F4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Terminal.app/Terminal";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = TerminalTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -487,14 +373,7 @@
 				B4118480196DD86B004EB8F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		B4118481196DD86B004EB8F4 /* Build configuration list for PBXNativeTarget "TerminalTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B4118482196DD86B004EB8F4 /* Debug */,
-				B4118483196DD86B004EB8F4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
