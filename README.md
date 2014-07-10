@@ -7,13 +7,11 @@ The FSKModem framework allows sending and receiving data from any iOS or OS X de
 
 1. [System requirements](README.md#system-requirements)
 2. [Project setup](README.md#project-setup)
-3. [Initial setup](README.md#initial-setup)
-4. [Sending data](README.md#sending-data)
-5. [Receiving data](README.md#receiving-data)
-6. [Talking to Arduino](README.md#talking-to-arduino)
-7. [Known Issues](README.md#known-issues)
-8. [Credits / Acknowledgements](README.md#credits--acknowledgements)
-9. [License](README.md#license)
+3. [Usage](README.md#usage)
+4. [Talking to Arduino](README.md#talking-to-arduino)
+5. [Known Issues](README.md#known-issues)
+6. [Credits / Acknowledgements](README.md#credits--acknowledgements)
+7. [License](README.md#license)
 
 ## System requirements
 
@@ -33,7 +31,7 @@ You can either copy the source code files directly to your project or link the S
 | Other Linker Flags  | `-lstdc++ -ObjC -all_load`  |
 | User Header Search Paths  | `$(TARGET_BUILD_DIR)`  |
 
-## Initial setup
+## Usage
 
 ```objc
 JMFSKModemConfiguration* configuration = [JMModemConfiguration highSpeedConfiguration];
@@ -42,7 +40,7 @@ JMFSKModem* modem = [[JMFSKModem alloc]initWithConfiguration:configuration];
 [modem connect];
 ```
 
-## Sending data
+### Sending data
 
 ```objc
 NSString* textToSend = @"Hello World";
@@ -51,17 +49,17 @@ NSData* dataToSend = [textToSend dataUsingEncoding:NSASCIIStringEncoding];
 [modem sendData:dataToSend];
 ```
 
-##Receiving data
+### Receiving data
 
 Register a delegate on your `JMFSKModem` instance and implement the `JMFSKModemDelegate` protocol to be notified whenever data arrives.
 
-### Setting the delegate object
+#### Setting the delegate object
 
 ```objc
 modem.delegate = myModemDelegate;
 ```
 
-### Delegate implementation
+#### Delegate implementation
 
 ```objc
 -(void)modem:(JMFSKModem *)modem didReceiveData:(NSData *)data
