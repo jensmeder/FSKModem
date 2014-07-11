@@ -51,6 +51,15 @@
 	[_modem disconnect];
 }
 
+-(void)setConnected:(BOOL)connected
+{
+	[self willChangeValueForKey:@"connected"];
+	
+	_connected = connected;
+	
+	[self didChangeValueForKey:@"connected"];
+}
+
 #pragma mark - Delegate
 
 -(void)modem:(JMFSKModem *)modem didReceiveData:(NSData *)data
@@ -62,6 +71,16 @@
 	_receivedText = [_receivedText stringByAppendingFormat:@"%@\n",text];
 	
 	[self didChangeValueForKey:@"receivedText"];
+}
+
+-(void)modemDidDisconnect:(JMFSKModem *)modem
+{
+	[self setConnected:NO];
+}
+
+-(void)modemDidConnect:(JMFSKModem *)modem
+{
+	[self setConnected:YES];
 }
 
 @end

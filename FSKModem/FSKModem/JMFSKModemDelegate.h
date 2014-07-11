@@ -24,6 +24,8 @@
 
 @protocol JMFSKModemDelegate <NSObject>
 
--(void) modem:(JMFSKModem *)modem didReceiveData:(NSData*)data;
+-(void) modemDidConnect:(JMFSKModem*)modem;
+-(void) modemDidDisconnect:(JMFSKModem*)modem;
+-(void) modem:(JMFSKModem*)modem didReceiveData:(NSData*)data;
 
 @end

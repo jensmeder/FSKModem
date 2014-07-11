@@ -20,6 +20,7 @@
 	
 	JMTerminalViewModel* _viewModel;
 	UIBarButtonItem* _connectBarButtonItem;
+	UIBarButtonItem* _disconnectBarButtonItem;
 }
 
 -(instancetype)initWithViewModel:(JMTerminalViewModel *)viewModel
@@ -41,9 +42,20 @@
 
 -(void)viewDidLoad
 {
-	[super viewDidLoad];
-	
-	_connectBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Connect" style:UIBarButtonItemStylePlain target:_viewModel action:@selector(connect)];
+	_connectBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Connect" style:UIBarButtonItemStylePlain target:self action:@selector(connect)];
+	_disconnectBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Disconnect" style:UIBarButtonItemStylePlain target:self action:@selector(disconnect)];
+}
+
+-(void) connect
+{
+	_connectBarButtonItem.enabled = NO;
+	[_viewModel connect];
+}
+
+-(void) disconnect
+{
+	_disconnectBarButtonItem.enabled = NO;
+	[_viewModel disconnect];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,6 +69,7 @@
 	terminalView.inputTextField.delegate = self;
 	
 	[_viewModel addObserver:self forKeyPath:@"receivedText" options:NSKeyValueObservingOptionNew context:NULL];
+	[_viewModel addObserver:self forKeyPath:@"connected" options:NSKeyValueObservingOptionNew context:NULL];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillChange:) name:UIKeyboardWillHideNotification object:nil];
@@ -71,6 +84,7 @@
 	terminalView.inputTextField.delegate = nil;
 	
 	[_viewModel removeObserver:self forKeyPath:@"receivedText"];
+	[_viewModel removeObserver:self forKeyPath:@"connected"];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -95,9 +109,25 @@
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	JMTerminalView* terminalView = (JMTerminalView*)self.view;
+	if ([keyPath isEqualToString:@"receivedText"])
+	{
+		JMTerminalView* terminalView = (JMTerminalView*)self.view;
 	
-	terminalView.receivingTextView.text = _viewModel.receivedText;
+		terminalView.receivingTextView.text = _viewModel.receivedText;
+	}
+	else
+	{
+		if (_viewModel.connected)
+		{
+			_disconnectBarButtonItem.enabled = YES;
+			[self.navigationItem setRightBarButtonItem:_disconnectBarButtonItem animated:YES];
+		}
+		else
+		{
+			_connectBarButtonItem.enabled = YES;
+			[self.navigationItem setRightBarButtonItem:_connectBarButtonItem animated:YES];
+		}
+	}
 }
 
 #pragma mark - Text field delegate

@@ -40,9 +40,4 @@
 	[_modem disconnect];
 }
 
--(void)applicationDidBecomeActive:(UIApplication *)application
-{
-	[_modem connect];
-}
-
 @end

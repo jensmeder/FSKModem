@@ -12,6 +12,7 @@
 
 @interface JMTerminalViewModel : NSObject
 
+@property (readonly) BOOL connected;
 @property (nonatomic, strong, readonly) NSString* receivedText;
 
 -(instancetype)initWithModem:(JMFSKModem*)modem;

@@ -161,6 +161,10 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 				{
 					completion(YES);
 				}
+				dispatch_async(dispatch_get_main_queue(),
+				^{
+					[strongSelf->_delegate modemDidDisconnect:strongSelf];
+				});
 
 				return;
 			}
@@ -174,6 +178,10 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			{
 				completion(NO);
 			}
+			dispatch_async(dispatch_get_main_queue(),
+			^{
+				[strongSelf->_delegate modemDidConnect:strongSelf];
+			});
 		});
 	}
 }
@@ -209,6 +217,12 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 				{
 					completion(YES);
 				}
+				
+				dispatch_async(dispatch_get_main_queue(),
+				^{
+					[strongSelf->_delegate modemDidConnect:strongSelf];
+				});
+				
 				return;
 			}
 #endif
@@ -219,6 +233,11 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			{
 				completion(NO);
 			}
+			
+			dispatch_async(dispatch_get_main_queue(),
+			^{
+				[strongSelf->_delegate modemDidDisconnect:strongSelf];
+			});
 		});
 	}
 }
