@@ -17,5 +17,7 @@
 -(instancetype)initWithModem:(JMFSKModem*)modem;
 
 -(void) sendMessage:(NSString*)message;
+-(void) connect;
+-(void) disconnect;
 
 @end

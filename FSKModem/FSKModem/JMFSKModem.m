@@ -157,7 +157,11 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			
 			if (error)
 			{
-				completion(YES);
+				if (completion)
+				{
+					completion(YES);
+				}
+
 				return;
 			}
 #endif
@@ -201,7 +205,10 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			
 			if (error)
 			{
-				completion(YES);
+				if (completion)
+				{
+					completion(YES);
+				}
 				return;
 			}
 #endif

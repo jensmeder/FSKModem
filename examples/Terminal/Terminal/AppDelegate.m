@@ -27,8 +27,9 @@
 	JMTerminalViewModel* terminalViewModel = [[JMTerminalViewModel alloc]initWithModem:_modem];
 	_terminalViewController = [[JMTerminalViewController alloc]initWithViewModel:terminalViewModel];
 
+	UINavigationController* navigationController = [[UINavigationController alloc]initWithRootViewController:_terminalViewController];
 	_mainWindow = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-	_mainWindow.rootViewController = _terminalViewController;
+	_mainWindow.rootViewController = navigationController;
 	[_mainWindow makeKeyAndVisible];
 	
 	return YES;

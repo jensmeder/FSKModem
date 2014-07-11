@@ -19,6 +19,7 @@
 	@private
 	
 	JMTerminalViewModel* _viewModel;
+	UIBarButtonItem* _connectBarButtonItem;
 }
 
 -(instancetype)initWithViewModel:(JMTerminalViewModel *)viewModel
@@ -38,9 +39,18 @@
 	self.view = [[JMTerminalView alloc]init];
 }
 
+-(void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	_connectBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Connect" style:UIBarButtonItemStylePlain target:_viewModel action:@selector(connect)];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	
+	self.navigationItem.rightBarButtonItem = _connectBarButtonItem;
 	
 	JMTerminalView* terminalView = (JMTerminalView*)self.view;
 	

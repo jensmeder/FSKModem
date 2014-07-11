@@ -41,6 +41,16 @@
 	[_modem sendData:data];
 }
 
+-(void)connect
+{
+	[_modem connect];
+}
+
+-(void)disconnect
+{
+	[_modem disconnect];
+}
+
 #pragma mark - Delegate
 
 -(void)modem:(JMFSKModem *)modem didReceiveData:(NSData *)data
