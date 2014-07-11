@@ -7,12 +7,11 @@ The FSKModem framework allows sending and receiving data from any iOS or OS X de
 
 1. [System requirements](README.md#system-requirements)
 2. [Project setup](README.md#project-setup)
-3. [Initial setup](README.md#initial-setup)
-4. [Sending data](README.md#sending-data)
-5. [Receiving data](README.md#receiving-data)
-6. [Talking to Arduino](README.md#talking-to-arduino)
-7. [Known Issues](README.md#known-issues)
-8. [Credits / Acknowledgements](README.md#credits--acknowledgements)
+3. [Usage](README.md#usage)
+4. [Talking to Arduino](README.md#talking-to-arduino)
+5. [Known Issues](README.md#known-issues)
+6. [Credits / Acknowledgements](README.md#credits--acknowledgements)
+7. [License](README.md#license)
 
 ## System requirements
 
@@ -32,7 +31,7 @@ You can either copy the source code files directly to your project or link the S
 | Other Linker Flags  | `-lstdc++ -ObjC -all_load`  |
 | User Header Search Paths  | `$(TARGET_BUILD_DIR)`  |
 
-## Initial setup
+## Usage
 
 ```objc
 JMFSKModemConfiguration* configuration = [JMModemConfiguration highSpeedConfiguration];
@@ -41,7 +40,7 @@ JMFSKModem* modem = [[JMFSKModem alloc]initWithConfiguration:configuration];
 [modem connect];
 ```
 
-## Sending data
+### Sending data
 
 ```objc
 NSString* textToSend = @"Hello World";
@@ -50,17 +49,17 @@ NSData* dataToSend = [textToSend dataUsingEncoding:NSASCIIStringEncoding];
 [modem sendData:dataToSend];
 ```
 
-##Receiving data
+### Receiving data
 
 Register a delegate on your `JMFSKModem` instance and implement the `JMFSKModemDelegate` protocol to be notified whenever data arrives.
 
-### Setting the delegate object
+#### Setting the delegate object
 
 ```objc
 modem.delegate = myModemDelegate;
 ```
 
-### Delegate implementation
+#### Delegate implementation
 
 ```objc
 -(void)modem:(JMFSKModem *)modem didReceiveData:(NSData *)data
@@ -173,3 +172,27 @@ This project uses code from arm22's [SoftModemTerminal](https://code.google.com/
 ) application.
 
 The guys from Perceptive Development provide a great read on their usage of [FSK in the Tin Can](http://labs.perceptdev.com/how-to-talk-to-tin-can/) iOS App.
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Jens Meder
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
