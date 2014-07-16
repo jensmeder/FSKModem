@@ -110,13 +110,12 @@
 	float duration = [((NSNumber*)[notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey]) floatValue];
 	CGRect endFrame = [((NSValue*)[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey]) CGRectValue];
 	
+	JMTerminalView* terminalView = (JMTerminalView*)self.view;
+	
 	[UIView beginAnimations:@"" context:NULL];
 	[UIView setAnimationCurve:curve];
 	[UIView setAnimationDuration:duration];
-	
-	CGRect frame = self.view.frame;
-	
-	self.view.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, endFrame.origin.y);
+	terminalView.bottomOffset = MAX(0, self.view.frame.size.height - endFrame.origin.y);
 	[self.view layoutIfNeeded];
 	[UIView commitAnimations];
 }

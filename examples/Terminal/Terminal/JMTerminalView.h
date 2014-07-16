@@ -27,4 +27,6 @@
 @property (nonatomic, strong, readonly) UITextField* inputTextField;
 @property (nonatomic, strong, readonly) UITextView* receivingTextView;
 
+@property CGFloat bottomOffset;
+
 @end

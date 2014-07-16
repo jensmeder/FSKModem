@@ -23,6 +23,11 @@
 #import "JMTerminalView.h"
 
 @implementation JMTerminalView
+{
+	@private
+	
+	NSLayoutConstraint* _bottomConstraint;
+}
 
 - (instancetype)init
 {
@@ -40,12 +45,21 @@
 		_receivingTextView.backgroundColor = [UIColor whiteColor];
 		_receivingTextView.translatesAutoresizingMaskIntoConstraints = NO;
 		_receivingTextView.editable = NO;
+		_receivingTextView.font = [UIFont systemFontOfSize:18.0];
 		_receivingTextView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
 
 		[self addSubview:_receivingTextView];
 		[self addSubview:_inputTextField];
 		
-		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_receivingTextView]-5-[_inputTextField(35)]-5-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_inputTextField, _receivingTextView)]];
+		_bottomConstraint = [NSLayoutConstraint constraintWithItem:_inputTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1.0 constant:-5];
+		
+		[self addConstraint:_bottomConstraint];
+		
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_inputTextField attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:0.0 constant:35]];
+		
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_receivingTextView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1.0 constant:0]];
+		
+		[self addConstraint:[NSLayoutConstraint constraintWithItem:_receivingTextView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_inputTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:-5]];
 	
 		[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[_receivingTextView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_receivingTextView)]];
 	
@@ -53,6 +67,16 @@
     }
 	
     return self;
+}
+
+-(void)setBottomOffset:(CGFloat)bottomOffset
+{
+	_bottomConstraint.constant = -bottomOffset - 5;
+}
+
+-(CGFloat)bottomOffset
+{
+	return -(_bottomConstraint.constant + 5);
 }
 
 @end
