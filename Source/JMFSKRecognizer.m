@@ -44,7 +44,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	unsigned _bitPosition;
 	unsigned _recentWidth;
 	unsigned _recentAvrWidth;
-	UInt8 _bits;
+	UInt16 _bits;
 	FSKRecState _state;
 	JMQueue* _queue;
 	
@@ -107,16 +107,34 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 		}
 		case FSKBits:
 		{
-			if((_bitPosition <= 7))
+			if((_bitPosition <= 8))
 			{
 				newState = FSKBits;
 				[self dataBit:isHigh];
 			}
-			else if(_bitPosition == 8)
+			else if(_bitPosition == 9)
 			{
+				// Calculate parity
+				
+				int numberOfOnes = 0;
+
+				UInt8 byte = _bits;
+				
+				for(int i = 0; i< 8; i++)
+				{
+					numberOfOnes += byte & (1 << i) ? 1:0;
+				}
+				
+				BOOL parityBit = (_bits >> 8) & 1;
+				
+				if ((numberOfOnes % 2 == 0 && !parityBit) || (numberOfOnes % 2 != 0 && parityBit))
+				{
+					[_queue enqueueObject:[NSNumber numberWithChar:byte]];
+					[self performSelectorOnMainThread:@selector(commitBytes) withObject:nil waitUntilDone:NO];
+				}
+				
 				newState = FSKStart;
-				[_queue enqueueObject:[NSNumber numberWithChar:_bits]];
-				[self performSelectorOnMainThread:@selector(commitBytes) withObject:nil waitUntilDone:NO];
+				
 				_bits = 0;
 				_bitPosition = 0;
 			}

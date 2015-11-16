@@ -28,7 +28,7 @@
 	_modem = [[JMFSKModem alloc]initWithConfiguration:[JMFSKModemConfiguration mediumSpeedConfiguration]];
 	_modem.delegate = self;
 	[_modem connect:^(BOOL error) {
-		NSData* data = [@"Hello World" dataUsingEncoding:NSUTF8StringEncoding];
+		NSData* data = [@"1234567890" dataUsingEncoding:NSUTF8StringEncoding];
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[_modem sendData:data];
 		});

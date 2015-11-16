@@ -26,9 +26,9 @@
 
 static const int SAMPLE_LIMIT_FACTOR = 100;
 
-static const int NUMBER_OF_DATA_BITS = 8;
+static const int NUMBER_OF_DATA_BITS = 9;
 static const int NUMBER_OF_START_BITS = 1;
-static const int NUMBER_OF_STOP_BITS = 1;
+static const int NUMBER_OF_STOP_BITS = 3;
 
 @implementation JMFSKSerialGenerator
 {
@@ -107,7 +107,28 @@ static const int NUMBER_OF_STOP_BITS = 1;
 		{
 			NSNumber* value = [_queue dequeueQbject];
 			UInt8 byte = value.unsignedIntValue;
+			
 			_bits = byte;
+			
+			// Calculate even parity
+			
+			int numberOfOnes = 0;
+			UInt16 parity = 0;
+			
+			for(int i = 0; i< 8; i++)
+			{
+				numberOfOnes += byte & (1 << i) ? 1:0;
+			}
+			
+			if (numberOfOnes % 2 != 0)
+			{
+				parity = 1 << 8;
+			}
+			
+			NSLog(@"p %i", parity);
+			
+			_bits |= parity;
+			
 			_bits <<= NUMBER_OF_START_BITS; // Set start bits to LOW
 			_bits |= UINT16_MAX << (NUMBER_OF_START_BITS + NUMBER_OF_DATA_BITS); // Set stop bits to HIGH
 			
