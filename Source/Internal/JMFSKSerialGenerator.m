@@ -33,9 +33,6 @@ static const int NUMBER_OF_STOP_BITS = 2;
 @implementation JMFSKSerialGenerator
 {
 	@private
-
-	int _sineTableLength;
-	SInt16* _sineTable;
 	
 	float _nsBitProgress;
 	unsigned _sineTableIndex;
@@ -49,6 +46,8 @@ static const int NUMBER_OF_STOP_BITS = 2;
 	JMQueue* _queue;
 	AudioStreamBasicDescription _audioFormat;
 	JMFSKModemConfiguration* _configuration;
+	
+	NSMutableData* _sineTableData;
 }
 
 - (instancetype) initWithAudioFormat:(AudioStreamBasicDescription*)audioFormat configuration:(JMFSKModemConfiguration*)configuration
@@ -61,25 +60,22 @@ static const int NUMBER_OF_STOP_BITS = 2;
 		_audioFormat = *audioFormat;
 		_queue = [[JMQueue alloc]init];
 		_idle = YES;
-		_sineTableLength = _audioFormat.mSampleRate / SAMPLE_LIMIT_FACTOR;
-		_sineTable = new SInt16[_sineTableLength];
+		NSUInteger sineTableLength = _audioFormat.mSampleRate / SAMPLE_LIMIT_FACTOR;
+		
+		_sineTableData = [NSMutableData dataWithCapacity:sineTableLength * sizeof(SInt16)];
 		
 		int maxValuePerChannel = (1 << (_audioFormat.mBitsPerChannel - 1)) - 1;
 		
-		for(int i = 0; i < _sineTableLength; i++)
+		for(int i = 0; i < sineTableLength; i++)
 		{
 			// Transfer values between -1.0 and 1.0 to integer values between -sample max and sample max
 		
-			_sineTable[i] = (SInt16)(sin(i * 2 * M_PI / _sineTableLength) * maxValuePerChannel);
+			SInt16 value = (SInt16)(sin(i * 2 * M_PI / sineTableLength) * maxValuePerChannel);
+			[_sineTableData appendBytes:&value length:sizeof(SInt16)];
 		}
 	}
 	
 	return self;
-}
-
--(void)dealloc
-{
-	delete _sineTable;
 }
 
 - (BOOL) hasNextByte
@@ -206,9 +202,12 @@ static const int NUMBER_OF_STOP_BITS = 2;
 	int lowFrequencyThreshold = _configuration.lowFrequency / SAMPLE_LIMIT_FACTOR;
 		
 	_sineTableIndex += (_bits & 1) ? highFrequencyThreshold:lowFrequencyThreshold;
-	_sineTableIndex %= _sineTableLength;
-		
-	return _sineTable[_sineTableIndex];
+	_sineTableIndex %= _sineTableData.length / sizeof(SInt16);
+	
+	SInt16 value = 0;
+	[_sineTableData getBytes:&value range:NSMakeRange(sizeof(SInt16) * _sineTableIndex, sizeof(SInt16))];
+	
+	return value;
 }
 
 - (void) writeData:(NSData *)data

@@ -46,7 +46,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 	@private
 	
 	JMFSKModemConfiguration* _configuration;
-	AudioStreamBasicDescription* _audioFormat;
+	AudioStreamBasicDescription _audioFormat;
 	
 	JMAudioInputStream* _inputStream;
 	JMAudioOutputStream* _outputStream;
@@ -72,25 +72,20 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 -(void)dealloc
 {
 	[self disconnect:NULL];
-	
-	if (_audioFormat)
-	{
-		delete _audioFormat;
-	}
 }
 
 -(void) setupAudioFormat
 {
-	_audioFormat = new AudioStreamBasicDescription();
-		
-	_audioFormat->mSampleRate = SAMPLE_RATE;
-	_audioFormat->mFormatID	= kAudioFormatLinearPCM;
-	_audioFormat->mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
-	_audioFormat->mFramesPerPacket = 1;
-	_audioFormat->mChannelsPerFrame	= NUM_CHANNELS;
-	_audioFormat->mBitsPerChannel = BITS_PER_CHANNEL;
-	_audioFormat->mBytesPerPacket = BYTES_PER_FRAME;
-	_audioFormat->mBytesPerFrame = BYTES_PER_FRAME;
+	memset(&_audioFormat, 0, sizeof(AudioStreamBasicDescription));
+	
+	_audioFormat.mSampleRate = SAMPLE_RATE;
+	_audioFormat.mFormatID	= kAudioFormatLinearPCM;
+	_audioFormat.mFormatFlags = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked;
+	_audioFormat.mFramesPerPacket = 1;
+	_audioFormat.mChannelsPerFrame	= NUM_CHANNELS;
+	_audioFormat.mBitsPerChannel = BITS_PER_CHANNEL;
+	_audioFormat.mBytesPerPacket = BYTES_PER_FRAME;
+	_audioFormat.mBytesPerFrame = BYTES_PER_FRAME;
 }
 
 -(void) setup
@@ -105,10 +100,10 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 		
 		strongSelf->_encoder = [[JMProtocolEncoder alloc]init];
 		
-		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:*_audioFormat];
+		strongSelf->_outputStream = [[JMAudioOutputStream alloc]initWithAudioFormat:_audioFormat];
 	
-		strongSelf->_inputStream = [[JMAudioInputStream alloc]initWithAudioFormat:*_audioFormat];
-		strongSelf->_generator = [[JMFSKSerialGenerator alloc]initWithAudioFormat:strongSelf->_audioFormat configuration:strongSelf->_configuration];
+		strongSelf->_inputStream = [[JMAudioInputStream alloc]initWithAudioFormat:_audioFormat];
+		strongSelf->_generator = [[JMFSKSerialGenerator alloc]initWithAudioFormat:&strongSelf->_audioFormat configuration:strongSelf->_configuration];
 		strongSelf->_outputStream.audioSource = _generator;
 		
 		strongSelf->_decoder = [[JMProtocolDecoder alloc]init];

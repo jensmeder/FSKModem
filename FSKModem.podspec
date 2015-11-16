@@ -1,11 +1,3 @@
-#
-# Be sure to run `pod lib lint FSKModem.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = "FSKModem"
   s.version          = "0.1.0"
@@ -19,22 +11,17 @@ Pod::Spec.new do |s|
   s.description      = <<-DESC
                        DESC
 
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/FSKModem"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/jensmeder/FSKModem"
   s.license          = 'MIT'
-  s.author           = { "Jens Meder" => "kontakt@jensmeder.de" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/FSKModem.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { "Jens Meder" => "me@jensmeder.de" }
+  s.source           = { :git => "https://github.com/jensmeder/FSKModem.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'FSKModem' => ['Pod/Assets/*.png']
-  }
+  s.source_files = 'Source/**/*{h,m}'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
+  s.private_header_files = 'Source/Internal/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
