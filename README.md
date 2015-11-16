@@ -1,7 +1,7 @@
 FSKModem
 =============
 
-The FSKModem framework allows sending and receiving data from any iOS or OS X device via the head phone jack. It uses [frequency shift keying (FSK)](http://en.wikipedia.org/wiki/Frequency-shift_keying) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a serial protocol to transmit single bytes and a simple packet protocol to cluster bytes. 
+The FSKModem framework allows sending and receiving data from any iOS or OS X device via the head phone jack. It uses [frequency shift keying (FSK)](http://en.wikipedia.org/wiki/Frequency-shift_keying) to modulate a sine curve carrier signal to transmit bits. On top of that it uses a simple packet protocol to cluster bytes. 
 
 ## Overview
 

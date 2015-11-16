@@ -24,12 +24,12 @@
 
 static NSUInteger JMFSKRecognizerParityBitIndex = 8;
 
-typedef NS_ENUM(NSInteger, FSKRecState)
+typedef NS_ENUM(NSInteger, JMFSKRecognizerState)
 {
-	FSKStart,
-	FSKBits,
-	FSKSuccess,
-	FSKFail
+	JMFSKRecognizerStateStart,
+	JMFSKRecognizerStateBits,
+	JMFSKRecognizerStateSuccess,
+	JMFSKRecognizerStateFail
 } ;
 
 static const int FSK_SMOOTH = 3;
@@ -46,7 +46,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	unsigned _recentWidth;
 	unsigned _recentAvrWidth;
 	UInt16 _bits;
-	FSKRecState _state;
+	JMFSKRecognizerState _state;
 	
 	JMFSKModemConfiguration* _configuration;
 }
@@ -89,28 +89,28 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 
 - (void) determineStateForBit:(BOOL)isHigh
 {
-	FSKRecState newState = FSKFail;
+	JMFSKRecognizerState newState = JMFSKRecognizerStateFail;
 	switch (_state)
 	{
-		case FSKStart:
+		case JMFSKRecognizerStateStart:
 		{
 			if(!isHigh) // Start Bit
 			{
-				newState = FSKBits;
+				newState = JMFSKRecognizerStateBits;
 				_bits = 0;
 				_bitPosition = 0;
 			}
 			else
 			{
-				newState = FSKStart;
+				newState = JMFSKRecognizerStateStart;
 			}
 			break;
 		}
-		case FSKBits:
+		case JMFSKRecognizerStateBits:
 		{
 			if((_bitPosition <= JMFSKRecognizerParityBitIndex))
 			{
-				newState = FSKBits;
+				newState = JMFSKRecognizerStateBits;
 				[self dataBit:isHigh];
 			}
 			else
@@ -127,7 +127,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 					});
 				}
 				
-				newState = FSKStart;
+				newState = JMFSKRecognizerStateStart;
 				
 				_bits = 0;
 				_bitPosition = 0;
@@ -171,7 +171,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	_recentWidth += width;
 	_recentAvrWidth += avgWidth;
 	
-	if (_state == FSKStart)
+	if (_state == JMFSKRecognizerStateStart)
 	{
 		if(!isHighFrequency)
 		{
@@ -230,7 +230,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 			_recentWidth -= _configuration.bitDuration;
 			_recentAvrWidth -= _configuration.bitDuration;
 			
-			if(_state == FSKStart)
+			if(_state == JMFSKRecognizerStateStart)
 			{
 				// The byte ended, reset the accumulators
 				_recentLows = _recentHighs = 0;
@@ -274,7 +274,7 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 {
 	_bits = 0;
 	_bitPosition = 0;
-	_state = FSKStart;
+	_state = JMFSKRecognizerStateStart;
 	for (int i = 0; i < FSK_SMOOTH; i++)
 	{
 		_halfWaveHistory[i] = (_configuration.highFrequencyWaveDuration + _configuration.lowFrequencyWaveDuration) / 4;
