@@ -66,6 +66,13 @@
 		B48859C51BF9F5B2008DCF8A /* JMProtocolDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = B488599E1BF9F589008DCF8A /* JMProtocolDecoder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B48859C61BF9F5B2008DCF8A /* JMProtocolDecoderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = B48859A01BF9F589008DCF8A /* JMProtocolDecoderDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B48859C71BF9F5B2008DCF8A /* JMProtocolEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = B48859A11BF9F589008DCF8A /* JMProtocolEncoder.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B48859CA1BFA1909008DCF8A /* JMAudioInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = B48859921BF9F589008DCF8A /* JMAudioInputStream.m */; };
+		B48859CB1BFA1909008DCF8A /* JMAudioOutputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = B48859941BF9F589008DCF8A /* JMAudioOutputStream.m */; };
+		B48859CC1BFA1909008DCF8A /* JMAudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = B48859971BF9F589008DCF8A /* JMAudioStream.m */; };
+		B48859CD1BFA1909008DCF8A /* JMFSKRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = B48859991BF9F589008DCF8A /* JMFSKRecognizer.m */; };
+		B48859CE1BFA1909008DCF8A /* JMFSKSerialGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = B488599C1BF9F589008DCF8A /* JMFSKSerialGenerator.m */; };
+		B48859CF1BFA1909008DCF8A /* JMProtocolDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B488599F1BF9F589008DCF8A /* JMProtocolDecoder.m */; };
+		B48859D01BFA1909008DCF8A /* JMProtocolEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B48859A21BF9F589008DCF8A /* JMProtocolEncoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -558,6 +565,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B48859CA1BFA1909008DCF8A /* JMAudioInputStream.m in Sources */,
+				B48859CB1BFA1909008DCF8A /* JMAudioOutputStream.m in Sources */,
+				B48859CC1BFA1909008DCF8A /* JMAudioStream.m in Sources */,
+				B48859CD1BFA1909008DCF8A /* JMFSKRecognizer.m in Sources */,
+				B48859CE1BFA1909008DCF8A /* JMFSKSerialGenerator.m in Sources */,
+				B48859CF1BFA1909008DCF8A /* JMProtocolDecoder.m in Sources */,
+				B48859D01BFA1909008DCF8A /* JMProtocolEncoder.m in Sources */,
 				B488593E1BF9C556008DCF8A /* JMFSKModem.m in Sources */,
 				B488593F1BF9C556008DCF8A /* JMFSKModemConfiguration.m in Sources */,
 			);
@@ -750,7 +764,7 @@
 		B48858F61BF9C388008DCF8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -774,7 +788,7 @@
 		B48858F71BF9C388008DCF8A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
