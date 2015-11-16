@@ -21,7 +21,6 @@
 //	SOFTWARE.
 
 #import "JMFSKSerialGenerator.h"
-#import "JMQueue.h"
 #import "JMFSKModemConfiguration.h"
 
 static const int SAMPLE_LIMIT_FACTOR = 100;
@@ -43,7 +42,7 @@ static const int NUMBER_OF_STOP_BITS = 2;
 	BOOL _idle;
 	BOOL _sendCarrier;
 
-	JMQueue* _queue;
+	NSMutableData* _buffer;
 	AudioStreamBasicDescription _audioFormat;
 	JMFSKModemConfiguration* _configuration;
 	
@@ -56,9 +55,10 @@ static const int NUMBER_OF_STOP_BITS = 2;
 
 	if (self)
 	{
+		_buffer = [NSMutableData data];
 		_configuration = configuration;
 		_audioFormat = *audioFormat;
-		_queue = [[JMQueue alloc]init];
+
 		_idle = YES;
 		NSUInteger sineTableLength = _audioFormat.mSampleRate / SAMPLE_LIMIT_FACTOR;
 		
@@ -78,6 +78,18 @@ static const int NUMBER_OF_STOP_BITS = 2;
 	return self;
 }
 
+-(BOOL) evenParity:(UInt8)byte
+{
+	NSUInteger numberOfOnes = 0;
+	
+	for(int i = 0; i < 8; i++)
+	{
+		numberOfOnes += byte & (1 << i) ? 1:0;
+	}
+	
+	return numberOfOnes % 2 != 0;
+}
+
 - (BOOL) hasNextByte
 {
 	// Set the output bit HIGH to indicate that there is no data transmission
@@ -86,7 +98,7 @@ static const int NUMBER_OF_STOP_BITS = 2;
 
 	if(_idle)
 	{
-		if(_queue.count > 0)
+		if(_buffer.length)
 		{
 			int preCarrierBitsCount = _configuration.baudRate / 25 + 1;
 
@@ -99,31 +111,20 @@ static const int NUMBER_OF_STOP_BITS = 2;
 	}
 	else
 	{
-		if(_queue.count > 0)
+		if(_buffer.length)
 		{
-			NSNumber* value = [_queue dequeueQbject];
-			UInt8 byte = value.unsignedIntValue;
+			UInt8 byte = 0;
+			[_buffer getBytes:&byte length:sizeof(byte)];
+			[_buffer replaceBytesInRange:NSMakeRange(0, 1) withBytes:NULL length:0];
 			
 			_bits = byte;
 			
 			// Calculate even parity
 			
-			int numberOfOnes = 0;
-			UInt16 parity = 0;
-			
-			for(int i = 0; i< 8; i++)
+			if ([self evenParity:byte])
 			{
-				numberOfOnes += byte & (1 << i) ? 1:0;
+				_bits |= 1 << 8;
 			}
-			
-			if (numberOfOnes % 2 != 0)
-			{
-				parity = 1 << 8;
-			}
-			
-			NSLog(@"p %i", parity);
-			
-			_bits |= parity;
 			
 			_bits <<= NUMBER_OF_START_BITS; // Set start bits to LOW
 			_bits |= UINT16_MAX << (NUMBER_OF_START_BITS + NUMBER_OF_DATA_BITS); // Set stop bits to HIGH
@@ -212,12 +213,7 @@ static const int NUMBER_OF_STOP_BITS = 2;
 
 - (void) writeData:(NSData *)data
 {
-	const char* bytes = (const char*)[data bytes];
-
-	for (int i = 0; i < data.length; i++)
-	{
-		[_queue enqueueObject:[NSNumber numberWithChar:bytes[i]]];
-	}
+	[_buffer appendData:data];
 }
 
 @end

@@ -21,7 +21,8 @@
 //	SOFTWARE.
 
 #import "JMFSKRecognizer.h"
-#import "JMQueue.h"
+
+static NSUInteger JMFSKRecognizerParityBitIndex = 8;
 
 typedef NS_ENUM(NSInteger, FSKRecState)
 {
@@ -46,7 +47,6 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	unsigned _recentAvrWidth;
 	UInt16 _bits;
 	FSKRecState _state;
-	JMQueue* _queue;
 	
 	JMFSKModemConfiguration* _configuration;
 }
@@ -58,22 +58,11 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	if(self)
 	{
 		_configuration = configuration;
-	
-		_queue = [[JMQueue alloc]init];
+
 		[self reset];
 	}
 	
 	return self;
-}
-
-- (void) commitBytes
-{
-	while (_queue.count)
-	{
-		NSNumber* value = [_queue dequeueQbject];
-		UInt8 input = value.unsignedIntegerValue;
-		[_delegate recognizer:self didReceiveByte:input];
-	}
 }
 
 - (void) dataBit:(BOOL)one
@@ -84,6 +73,18 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 	}
 	
 	_bitPosition++;
+}
+
+-(BOOL) evenParity:(UInt8)byte
+{
+	NSUInteger numberOfOnes = 0;
+	
+	for(int i = 0; i < 8; i++)
+	{
+		numberOfOnes += byte & (1 << i) ? 1:0;
+	}
+	
+	return numberOfOnes % 2 != 0;
 }
 
 - (void) determineStateForBit:(BOOL)isHigh
@@ -107,30 +108,23 @@ static const int SMOOTHER_COUNT = FSK_SMOOTH * (FSK_SMOOTH + 1) / 2;
 		}
 		case FSKBits:
 		{
-			if((_bitPosition <= 8))
+			if((_bitPosition <= JMFSKRecognizerParityBitIndex))
 			{
 				newState = FSKBits;
 				[self dataBit:isHigh];
 			}
-			else if(_bitPosition == 9)
+			else
 			{
-				// Calculate parity
-				
-				int numberOfOnes = 0;
-
 				UInt8 byte = _bits;
-				
-				for(int i = 0; i< 8; i++)
-				{
-					numberOfOnes += byte & (1 << i) ? 1:0;
-				}
-				
+
 				BOOL parityBit = (_bits >> 8) & 1;
 				
-				if ((numberOfOnes % 2 == 0 && !parityBit) || (numberOfOnes % 2 != 0 && parityBit))
+				if ([self evenParity:byte] == parityBit)
 				{
-					[_queue enqueueObject:[NSNumber numberWithChar:byte]];
-					[self performSelectorOnMainThread:@selector(commitBytes) withObject:nil waitUntilDone:NO];
+					dispatch_async(dispatch_get_main_queue(),
+					^{
+						[_delegate recognizer:self didReceiveByte:byte];
+					});
 				}
 				
 				newState = FSKStart;
