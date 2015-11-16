@@ -28,7 +28,7 @@ static const int SAMPLE_LIMIT_FACTOR = 100;
 
 static const int NUMBER_OF_DATA_BITS = 9;
 static const int NUMBER_OF_START_BITS = 1;
-static const int NUMBER_OF_STOP_BITS = 3;
+static const int NUMBER_OF_STOP_BITS = 2;
 
 @implementation JMFSKSerialGenerator
 {
