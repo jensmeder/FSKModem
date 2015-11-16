@@ -143,7 +143,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			if([AVAudioSession sharedInstance].availableInputs.count > 0)
 			{
 				[[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
-				[strongSelf->_inputStream record];
+				
 			}
 			else
 			{
@@ -170,6 +170,7 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 			}
 #endif
 	
+			[strongSelf->_inputStream record];
 			[strongSelf->_outputStream play];
 		
 			strongSelf->_connected = YES;
@@ -261,12 +262,12 @@ static const int BYTES_PER_FRAME = (NUM_CHANNELS * (BITS_PER_CHANNEL / 8));
 
 - (void)routeChanged:(NSNotification*)notification
 {
-	if (_connected)
+	/*if (_connected)
 	{
 		[self disconnect:NULL];
 	
 		[self connect:NULL];
-	}
+	}*/
 }
 
 @end

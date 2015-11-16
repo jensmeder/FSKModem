@@ -21,23 +21,11 @@
 //	SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <AVFoundation/AVFoundation.h>
-#import "JMFSKModemConfiguration.h"
-#import "JMFSKModemDelegate.h"
 
-@interface JMFSKModem : NSObject
+@class JMAudioOutputStream;
 
-@property (nonatomic, weak) id<JMFSKModemDelegate> delegate;
-@property (readonly) BOOL connected;
+@protocol JMAudioSource <NSObject>
 
--(instancetype)initWithConfiguration:(JMFSKModemConfiguration*)configuration;
-
--(void) connect;
--(void) connect:(void (^)(BOOL error))completion;
-
--(void) disconnect;
--(void) disconnect:(void (^)(BOOL error))completion;
-
--(void) sendData:(NSData*)data;
+-(void) outputStream:(JMAudioOutputStream*)stream fillBuffer:(void*)buffer bufferSize:(NSUInteger)bufferSize;
 
 @end
