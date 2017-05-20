@@ -21,8 +21,7 @@
 //	SOFTWARE.
 
 #import <Foundation/Foundation.h>
-
-@class JMFSKModem;
+@import FSKModem;
 
 @interface JMTerminalViewModel : NSObject
 

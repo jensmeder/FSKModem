@@ -10,22 +10,17 @@
 		B4118464196DD86B004EB8F4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118463196DD86B004EB8F4 /* main.m */; };
 		B4118467196DD86B004EB8F4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B4118466196DD86B004EB8F4 /* AppDelegate.m */; };
 		B411846F196DD86B004EB8F4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B411846E196DD86B004EB8F4 /* Images.xcassets */; };
-		B411848F196DD8CD004EB8F4 /* libFSKModem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B411848A196DD8A3004EB8F4 /* libFSKModem.a */; };
 		B4118492196DD8CD004EB8F4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118490196DD8CD004EB8F4 /* AudioToolbox.framework */; };
 		B4118493196DD8CD004EB8F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4118491196DD8CD004EB8F4 /* AVFoundation.framework */; };
 		B411849F196DD9BF004EB8F4 /* JMTerminalViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B411849E196DD9BF004EB8F4 /* JMTerminalViewModel.m */; };
 		B41184A2196DD9D7004EB8F4 /* JMTerminalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B41184A1196DD9D7004EB8F4 /* JMTerminalViewController.m */; };
 		B41184A5196DD9E4004EB8F4 /* JMTerminalView.m in Sources */ = {isa = PBXBuildFile; fileRef = B41184A4196DD9E4004EB8F4 /* JMTerminalView.m */; };
+		B4B5D5B81ED0549E00AF8BDB /* FSKModem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4B5D5B71ED0549200AF8BDB /* FSKModem.framework */; };
+		B4B5D5B91ED0549E00AF8BDB /* FSKModem.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B4B5D5B71ED0549200AF8BDB /* FSKModem.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B4B5D5BE1ED0552000AF8BDB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4B5D5BD1ED0552000AF8BDB /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B4118489196DD8A3004EB8F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B44E856E1968A9F900148E42;
-			remoteInfo = iOSFSKModem;
-		};
 		B411848B196DD8A3004EB8F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
@@ -33,14 +28,42 @@
 			remoteGlobalIDString = B4A39420196B1037002C7324;
 			remoteInfo = OSXFSKModem;
 		};
-		B411848D196DD8B4004EB8F4 /* PBXContainerItemProxy */ = {
+		B4B5D5B21ED0549200AF8BDB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = B44E856D1968A9F900148E42;
-			remoteInfo = iOSFSKModem;
+			remoteGlobalIDString = B4B5D58B1ED0525900AF8BDB;
+			remoteInfo = iOS;
+		};
+		B4B5D5B61ED0549200AF8BDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B4B5D58C1ED0525900AF8BDB;
+			remoteInfo = iOS;
+		};
+		B4B5D5BA1ED0549E00AF8BDB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B4118484196DD8A2004EB8F4 /* FSKModem.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B4B5D58B1ED0525900AF8BDB;
+			remoteInfo = iOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B4B5D5BC1ED0549E00AF8BDB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B4B5D5B91ED0549E00AF8BDB /* FSKModem.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B411845E196DD86B004EB8F4 /* Terminal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Terminal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +81,7 @@
 		B41184A1196DD9D7004EB8F4 /* JMTerminalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTerminalViewController.m; sourceTree = "<group>"; };
 		B41184A3196DD9E4004EB8F4 /* JMTerminalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMTerminalView.h; sourceTree = "<group>"; };
 		B41184A4196DD9E4004EB8F4 /* JMTerminalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMTerminalView.m; sourceTree = "<group>"; };
+		B4B5D5BD1ED0552000AF8BDB /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +90,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4118492196DD8CD004EB8F4 /* AudioToolbox.framework in Frameworks */,
+				B4B5D5B81ED0549E00AF8BDB /* FSKModem.framework in Frameworks */,
 				B4118493196DD8CD004EB8F4 /* AVFoundation.framework in Frameworks */,
-				B411848F196DD8CD004EB8F4 /* libFSKModem.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +139,7 @@
 			children = (
 				B4118462196DD86B004EB8F4 /* Info.plist */,
 				B4118463196DD86B004EB8F4 /* main.m */,
+				B4B5D5BD1ED0552000AF8BDB /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -122,8 +147,8 @@
 		B4118485196DD8A2004EB8F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B411848A196DD8A3004EB8F4 /* libFSKModem.a */,
-				B411848C196DD8A3004EB8F4 /* OSXFSKModem.framework */,
+				B411848C196DD8A3004EB8F4 /* FSKModem.framework */,
+				B4B5D5B71ED0549200AF8BDB /* FSKModem.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,11 +163,13 @@
 				B411845A196DD86B004EB8F4 /* Sources */,
 				B411845B196DD86B004EB8F4 /* Frameworks */,
 				B411845C196DD86B004EB8F4 /* Resources */,
+				B4B5D5BC1ED0549E00AF8BDB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B411848E196DD8B4004EB8F4 /* PBXTargetDependency */,
+				B4B5D5B31ED0549200AF8BDB /* PBXTargetDependency */,
+				B4B5D5BB1ED0549E00AF8BDB /* PBXTargetDependency */,
 			);
 			name = Terminal;
 			productName = Terminal;
@@ -156,7 +183,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = JM;
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Jens Meder";
 				TargetAttributes = {
 					B411845D196DD86B004EB8F4 = {
@@ -189,18 +216,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B411848A196DD8A3004EB8F4 /* libFSKModem.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFSKModem.a;
-			remoteRef = B4118489196DD8A3004EB8F4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B411848C196DD8A3004EB8F4 /* OSXFSKModem.framework */ = {
+		B411848C196DD8A3004EB8F4 /* FSKModem.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = OSXFSKModem.framework;
+			path = FSKModem.framework;
 			remoteRef = B411848B196DD8A3004EB8F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B4B5D5B71ED0549200AF8BDB /* FSKModem.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FSKModem.framework;
+			remoteRef = B4B5D5B61ED0549200AF8BDB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -211,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B411846F196DD86B004EB8F4 /* Images.xcassets in Resources */,
+				B4B5D5BE1ED0552000AF8BDB /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,10 +260,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B411848E196DD8B4004EB8F4 /* PBXTargetDependency */ = {
+		B4B5D5B31ED0549200AF8BDB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = iOSFSKModem;
-			targetProxy = B411848D196DD8B4004EB8F4 /* PBXContainerItemProxy */;
+			name = iOS;
+			targetProxy = B4B5D5B21ED0549200AF8BDB /* PBXContainerItemProxy */;
+		};
+		B4B5D5BB1ED0549E00AF8BDB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = iOS;
+			targetProxy = B4B5D5BA1ED0549E00AF8BDB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -253,15 +286,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -295,8 +332,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -304,6 +343,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -322,15 +362,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Terminal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jensmeder.FSK${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/**";
 			};
@@ -340,15 +380,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = Terminal/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lstdc++",
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "de.jensmeder.FSK${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "$(TARGET_BUILD_DIR)/**";
 			};

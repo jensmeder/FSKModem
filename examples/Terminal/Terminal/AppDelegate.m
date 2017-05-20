@@ -23,7 +23,7 @@
 #import "AppDelegate.h"
 #import "JMTerminalViewController.h"
 #import "JMTerminalViewModel.h"
-#import "JMFSKModem.h"
+@import FSKModem;
 
 @implementation AppDelegate
 {

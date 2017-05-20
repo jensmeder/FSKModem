@@ -21,7 +21,6 @@
 //	SOFTWARE.
 
 #import "JMTerminalViewModel.h"
-#import "JMFSKModem.h"
 
 @interface JMTerminalViewModel ()<JMFSKModemDelegate>
 
