@@ -15,7 +15,7 @@ The FSKModem framework allows sending and receiving data from any iOS or OS X de
 
 ## System requirements
 
-iOS 7.0+ or Mac OS X 10.7+
+iOS 8.0+ or Mac OS X 10.7+
 
 ## Project setup
 
